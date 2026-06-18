@@ -29,9 +29,9 @@
   <!-- TOP BAR -->
   <header style="position:sticky;top:0;z-index:50;background:rgba(20,20,22,.82);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);">
     <div style="padding:18px clamp(20px,4vw,64px);display:flex;align-items:center;justify-content:space-between;">
-      <a href="Sportsplayer Home.dc.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;">
-        <span style="width:11px;height:11px;background:#E9FF4A;border-radius:50%;"></span>
-        <span style="font-weight:700;font-size:17px;letter-spacing:-.01em;">Sportsplayer</span>
+      <a href="Sportsplayer Home.dc.html" style="display:flex;align-items:center;gap:9px;text-decoration:none;color:#fff;">
+        <svg width="22" height="24" viewBox="0 0 54 60" fill="white" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;display:block;"><g transform="rotate(12 30 37)"><path fill-rule="evenodd" d="M49,37 A19,13 0 1,0 11,37 A19,13 0 1,0 49,37 Z M40,37 A10,6.5 0 1,0 20,37 A10,6.5 0 1,0 40,37 Z"/></g><g transform="rotate(-12 22 21)"><path fill-rule="evenodd" d="M41,21 A19,13 0 1,0 3,21 A19,13 0 1,0 41,21 Z M32,21 A10,6.5 0 1,0 12,21 A10,6.5 0 1,0 32,21 Z"/></g></svg>
+        <span style="font-weight:800;font-size:14px;letter-spacing:.1em;text-transform:uppercase;">SPORTSPLAYER</span>
       </a>
       <div style="display:flex;align-items:center;gap:18px;">
         <a href="Sportsplayer Home.dc.html" style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9a9a96;text-decoration:none;" style-hover="color:#fff;">← Home</a>
@@ -51,9 +51,9 @@
     </div>
     <div style="position:relative;height:100%;display:flex;flex-direction:column;padding:26px clamp(20px,4vw,64px);">
       <div style="display:flex;align-items:center;justify-content:space-between;">
-        <a href="Sportsplayer Home.dc.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;">
-          <span style="width:11px;height:11px;background:#E9FF4A;border-radius:50%;"></span>
-          <span style="font-weight:700;font-size:17px;">Sportsplayer</span>
+        <a href="Sportsplayer Home.dc.html" style="display:flex;align-items:center;gap:9px;text-decoration:none;color:#fff;">
+          <svg width="22" height="24" viewBox="0 0 54 60" fill="white" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;display:block;"><g transform="rotate(12 30 37)"><path fill-rule="evenodd" d="M49,37 A19,13 0 1,0 11,37 A19,13 0 1,0 49,37 Z M40,37 A10,6.5 0 1,0 20,37 A10,6.5 0 1,0 40,37 Z"/></g><g transform="rotate(-12 22 21)"><path fill-rule="evenodd" d="M41,21 A19,13 0 1,0 3,21 A19,13 0 1,0 41,21 Z M32,21 A10,6.5 0 1,0 12,21 A10,6.5 0 1,0 32,21 Z"/></g></svg>
+          <span style="font-weight:800;font-size:14px;letter-spacing:.1em;text-transform:uppercase;">SPORTSPLAYER</span>
         </a>
         <button onClick="{{ closeMenu }}" style="background:none;border:none;color:#fff;cursor:pointer;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;">Close ✕</button>
       </div>
@@ -237,48 +237,96 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
 class Component extends DCLogic {
-  state = { menuOpen: false, menuImg: 'https://picsum.photos/seed/spx-patolo/1200/1400?grayscale', code: 'All', position: 'All', club: 'All', query: '', selectedId: null };
+  state = { menuOpen: false, menuImg: 'https://picsum.photos/seed/spx-talakai/1200/1400?grayscale', code: 'All', position: 'All', club: 'All', query: '', selectedId: null };
 
   accentFor() { return '#E9FF4A'; }
   imgFor(seed) { return 'https://picsum.photos/seed/' + seed + '/900/1200?grayscale'; }
 
   roster() {
     return [
-      { id: 'talakai', name: 'Siosifa Talakai', code: 'NRL', position: 'Prop', club: 'Cronulla Sharks', number: 8, status: 'Established', img: this.imgFor('spx-talakai'),
-        bio: 'A powerhouse prop who has established himself as one of the most destructive front-rowers in the NRL. Known for his explosive running game and bone-rattling carries, Talakai brings a physicality that shifts momentum and lifts those around him every time he takes the field.',
-        bio2: 'Beyond the game, Siosifa is deeply committed to his community and family \u2014 values that underpin everything he does on and off the field. His relentless pursuit of improvement is the hallmark of a Sportsplayer athlete.' },
-      { id: 'polata', name: 'China Polata', code: 'NRLW', position: 'Winger', club: 'Cronulla Sharks', number: 2, status: 'Rising', img: this.imgFor('spx-polata'),
-        bio: 'A dynamic winger with blistering pace and a natural ability to create something from nothing. China has quickly become one of the most exciting players in the NRLW, combining elite footwork with a strong work ethic across both sides of the ball.',
-        bio2: 'A proud Indigenous woman, China carries the stories of her community onto the field and is passionate about inspiring the next generation of young women in rugby league.' },
-      { id: 'bell', name: 'James Bell', code: 'SUPER LEAGUE', position: 'Second Row', club: 'Hull FC', number: 11, status: 'Established', img: this.imgFor('spx-bell'),
-        bio: 'A rugged and versatile back-rower who has become a cornerstone of Hull FC\u2019s forward pack. A Scotland international, James brings experience, leadership and a tireless work ethic to every game he plays in Super League.',
-        bio2: 'James believes in the game beyond the game \u2014 in the relationships, the character built in hard times, and the responsibility that comes with being a professional athlete. A true Sportsplayer man.' },
-      { id: 'lehi', name: 'Lehi Hopoate', code: 'NRL', position: 'Winger', club: 'Manly Sea Eagles', number: 23, status: 'Rising', img: this.imgFor('spx-lehi'),
-        bio: 'Forging his own identity in the NRL, Lehi Hopoate is a natural athlete with instinctive finishing ability and rare aerial prowess. Rapidly becoming one of the competition\u2019s most dangerous outside backs, his best football is still ahead of him.',
-        bio2: 'Humble, disciplined and hungry \u2014 Lehi embodies what Sportsplayer looks for in its athletes: character first, ability second. He carries the responsibility of his family name with grace and determination.' },
-      { id: 'taylan', name: 'Taylan May', code: 'NRL', position: 'Winger', club: 'Wests Tigers', number: 2, status: 'Established', img: this.imgFor('spx-taylan'),
-        bio: 'One of the most explosive finishers in the competition, Taylan May has consistently ranked among the NRL\u2019s top try-scorers. His pace, power and footballing instincts make him one of the game\u2019s most dangerous outside backs and a genuine crowd favourite.',
-        bio2: 'Passionate about the game and his family, Taylan brings the same energy to everything he does. He is committed to the long game in every sense \u2014 representative of the kind of athlete Sportsplayer champions.' },
+      // NRL
+      { id: 'fonua-blake', name: 'Addin Fonua-Blake', code: 'NRL', position: 'Prop', club: 'Cronulla Sharks', number: 8, status: 'Established', img: 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Addin_Fonua-Blake.jpg',
+        bio: "A barnstorming prop who has reinvented himself at the Cronulla Sharks, combining size and skill in a devastating package. Addin brings a physical edge and competitive fire that makes him one of the most impactful forwards in the competition.",
+        bio2: "Known as much for his character off the field as his performances on it, Addin is a family man whose values align perfectly with the Sportsplayer ethos — human first, always." },
+      { id: 'watene-z', name: 'Dallin Watene-Zelezniak', code: 'NRL', position: 'Winger', club: 'New Zealand Warriors', number: 23, status: 'Established', img: 'https://upload.wikimedia.org/wikipedia/commons/4/47/Dallin_Watene-Zelezniak.jpg',
+        bio: "One of the most electrifying outside backs in the game, Dallin brings pace, flair and exceptional defensive capabilities. A proud Māori man whose cultural identity shines through in everything he does on and off the field.",
+        bio2: "An established NRL player with representative honours for New Zealand, Dallin is committed to growing the game and serving his community with the same dedication he brings to every match." },
       { id: 'dylan', name: 'Dylan Walker', code: 'NRL', position: 'Lock', club: 'Parramatta Eels', number: 12, status: 'Established', img: this.imgFor('spx-dylan'),
-        bio: 'A versatile and experienced NRL player who has reinvented himself as a commanding back-rower for the Parramatta Eels. Dylan Walker brings physical intensity and natural leadership qualities that lift those around him every week.',
-        bio2: 'A man of enormous resilience both on and off the field, Dylan is a testament to perseverance and the power of the right support network. His story is exactly the kind Sportsplayer is here to champion.' },
-      { id: 'chan', name: 'Joe Chan', code: 'NRL', position: 'Second Row', club: 'Melbourne Storm', number: 11, status: 'Established', img: this.imgFor('spx-chan'),
-        bio: 'A reliable and intelligent second-rower who has earned his place at Melbourne through consistency and football smarts. Contracted until 2028, Joe is a critical part of the Storm\u2019s forward unit and a quiet leader both on and off the field.',
-        bio2: 'Joe Chan represents the kind of athlete Sportsplayer was built for \u2014 grounded, principled, and focused on both his career and the life he is building beyond it.' },
+        bio: "A versatile and experienced NRL player who has reinvented himself as a commanding back-rower for the Parramatta Eels. Dylan brings physical intensity and natural leadership qualities that lift those around him every single week.",
+        bio2: "A man of enormous resilience both on and off the field, Dylan is a testament to perseverance and the power of the right support network. His story is exactly the kind Sportsplayer is here to champion." },
+      { id: 'chan', name: 'Joe Chan', code: 'NRL', position: 'Second Row', club: 'Melbourne Storm', number: 11, status: 'Established', img: 'https://commons.wikimedia.org/wiki/Special:FilePath/Joe_Chan_2024.jpg',
+        bio: "A reliable and intelligent second-rower who has earned his place at Melbourne through consistency and football smarts. Contracted until 2028, Joe is a critical part of the Storm’s forward unit and a quiet leader both on and off the field.",
+        bio2: "Joe Chan represents the kind of athlete Sportsplayer was built for — grounded, principled, and focused on both his career and the life he is building beyond it." },
+      { id: 'aloiai', name: 'Josh Aloiai', code: 'NRL', position: 'Prop', club: 'Manly Sea Eagles', number: 10, status: 'Retired', img: 'https://commons.wikimedia.org/wiki/Special:FilePath/Joshaloiai.jpg',
+        bio: "A powerhouse prop who gave everything for the Manly Sea Eagles before a medical retirement in 2025. Throughout his career, Josh was known for his relentless work rate, physical dominance and quiet leadership of those around him.",
+        bio2: "Josh’s story exemplifies the Sportsplayer philosophy — a man who brought his whole self to the game and faced life’s hardest moments with dignity and grace. A genuine champion of the human spirit." },
+      { id: 'koloamatangi', name: 'Keaon Koloamatangi', code: 'NRL', position: 'Second Row', club: 'South Sydney Rabbitohs', number: 13, status: 'Established', img: 'https://commons.wikimedia.org/wiki/Special:FilePath/Keaon_Koloamatangi.jpg',
+        bio: "A physical and dynamic forward who has established himself as one of the Rabbitohs’ most important players. Keaon brings intensity, athleticism and an unrelenting work ethic every time he takes the field.",
+        bio2: "A man with deep roots in his community, Keaon Koloamatangi represents the Sportsplayer values of hard work, humility and human connection both on and off the field." },
+      { id: 'haas-k', name: 'Klese Haas', code: 'NRL', position: 'Prop', club: 'Gold Coast Titans', number: 8, status: 'Rising', img: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/Klese_Haas.jpg',
+        bio: "A powerful young prop who has emerged as one of the NRL’s most exciting young forwards at the Gold Coast Titans. Klese brings a physicality and skill set that belies his age, and a hunger that is impossible to ignore.",
+        bio2: "Making his own mark on the game through pure effort and determination, Klese is a dedicated professional committed to maximising his potential and representing his family with pride." },
+      { id: 'croker', name: 'Lachlan Croker', code: 'NRL', position: 'Hooker', club: 'Manly Sea Eagles', number: 9, status: 'Retired', img: 'https://upload.wikimedia.org/wikipedia/commons/4/4b/Lachlan_Croker.jpg',
+        bio: "A dynamic and creative hooker who captured hearts at Manly Sea Eagles before a medical retirement in late 2025. Lachlan’s footballing intelligence and playmaking ability made him one of the most exciting number nines of his era.",
+        bio2: "A young man who faced one of sport’s cruellest challenges with extraordinary courage and maturity, Lachlan Croker’s story is a reminder of why the human being always comes first." },
+      { id: 'lehi', name: 'Lehi Hopoate', code: 'NRL', position: 'Winger', club: 'Manly Sea Eagles', number: 23, status: 'Rising', img: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/Lehi_Hopoate.jpg',
+        bio: "Forging his own identity in the NRL, Lehi Hopoate is a natural athlete with instinctive finishing ability and rare aerial prowess. Rapidly becoming one of the competition’s most dangerous outside backs, his best football is still ahead.",
+        bio2: "Humble, disciplined and hungry — Lehi embodies what Sportsplayer looks for in its athletes: character first, ability second. He carries his family name with grace and determination." },
+      { id: 'haas-p', name: 'Payne Haas', code: 'NRL', position: 'Prop', club: 'Brisbane Broncos', number: 8, status: 'Established', img: 'https://upload.wikimedia.org/wikipedia/commons/c/c2/Paynehaas.jpg',
+        bio: "One of the most dominant props in NRL history, Payne Haas has been the engine of the Brisbane Broncos for years. His power, speed and endurance set the standard for what a modern front-rower can achieve.",
+        bio2: "Off the field, Payne is a devoted family man whose work in the community reflects the character that defines him as a person first, athlete second. The definition of what Sportsplayer stands for." },
+      { id: 'smith-r', name: 'Reimis Smith', code: 'NRL', position: 'Winger', club: 'Retired', number: 5, status: 'Retired', img: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Reimissmith.jpg',
+        bio: "A devastating winger who lit up the NRL and Super League with his pace, footwork and extraordinary finishing ability. Reimis brought excitement and danger every time he touched the ball over a storied career.",
+        bio2: "A champion of the game who hung up his boots in 2025, Reimis Smith’s journey from NRL to Super League and back is a testament to the drive and ambition that Sportsplayer celebrates." },
+      { id: 'talakai', name: 'Siosifa Talakai', code: 'NRL', position: 'Prop', club: 'Cronulla Sharks', number: 8, status: 'Established', img: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/Siosifatalakai.jpg',
+        bio: "A powerhouse prop who has established himself as one of the most destructive front-rowers in the NRL. Known for his explosive running game and bone-rattling carries, Talakai brings a physicality that shifts momentum and lifts those around him.",
+        bio2: "Beyond the game, Siosifa is deeply committed to his community and family — values that underpin everything he does on and off the field. His relentless pursuit of improvement is the hallmark of a Sportsplayer athlete." },
+      { id: 'taylan', name: 'Taylan May', code: 'NRL', position: 'Winger', club: 'Wests Tigers', number: 2, status: 'Established', img: 'https://upload.wikimedia.org/wikipedia/commons/1/1d/TAYLAN_MAY_(cropped).jpg',
+        bio: "One of the most explosive finishers in the competition, Taylan May has consistently ranked among the NRL’s top try-scorers. His pace, power and footballing instincts make him one of the game’s most dangerous outside backs.",
+        bio2: "Passionate about the game and his family, Taylan brings the same energy to everything he does. Extended with the Tigers until 2030, he is committed to the long game in every sense." },
+      // NRLW
+      { id: 'polata', name: 'China Polata', code: 'NRLW', position: 'Forward', club: 'Cronulla Sharks', number: 14, status: 'Rising', img: this.imgFor('spx-polata'),
+        bio: "A dynamic forward who has quickly become one of the most exciting players in the NRLW, combining physicality with an instinctive footballing brain and strong work ethic across both sides of the ball.",
+        bio2: "A proud Indigenous woman, China carries the stories of her community onto the field and is passionate about inspiring the next generation of young women in rugby league." },
+      { id: 'kalo', name: 'Kalosipani Hopoate', code: 'NRLW', position: 'Prop', club: 'Canterbury Bulldogs', number: 14, status: 'Established', img: this.imgFor('spx-kalo'),
+        bio: "A powerful front-rower who has developed into one of the NRLW’s most consistent performers. Kalosipani brings strength, skill and a tireless work ethic to the Canterbury Bulldogs — a NRLW Premiership winner and Tonga Women’s international.",
+        bio2: "Part of the legendary Hopoate rugby league family, Kalosipani has carved her own impressive career through sheer determination and ability. A genuine leader for her team and community." },
+      // Super League / UK
+      { id: 'hopoate-a', name: 'Albert Hopoate', code: 'SUPER LEAGUE', position: 'Winger', club: 'Warrington Wolves', number: 2, status: 'Established', img: this.imgFor('spx-albert'),
+        bio: "A powerful and athletic winger who made his mark in the NRL before taking on the Super League challenge with Warrington Wolves. Albert brings pace, strength and an X-factor that makes him dangerous with ball in hand.",
+        bio2: "Continuing the Hopoate family’s storied rugby league tradition on a new stage, Albert is committed to making an impact both on and off the field wherever the game takes him." },
+      { id: 'patolo-c', name: 'Chris Patolo', code: 'SUPER LEAGUE', position: 'Prop', club: 'Huddersfield Giants', number: 10, status: 'Established', img: this.imgFor('spx-chrispatolo'),
+        bio: "A powerful prop who brought his NRL experience to Super League with the Huddersfield Giants. Chris is known for his physical presence and ability to make the tough metres when his team needs it most.",
+        bio2: "An athlete who brings dedication and professionalism to everything he does, Chris Patolo embodies the Sportsplayer values of hard work, resilience and constant personal growth." },
+      { id: 'hawkins', name: 'Dean Hawkins', code: 'SUPER LEAGUE', position: 'Halfback', club: 'London Broncos', number: 7, status: 'Rising', img: this.imgFor('spx-hawkins'),
+        bio: "A creative and elusive halfback who took his talents to the UK, bringing NRL experience and a dynamic game style to London Broncos. Dean’s vision and execution make him one of the most exciting playmakers at his level.",
+        bio2: "A young man with big dreams and an even bigger work ethic, Dean represents the courageous athlete Sportsplayer is proud to champion — backing himself to thrive in a new environment." },
+      { id: 'bell', name: 'James Bell', code: 'SUPER LEAGUE', position: 'Second Row', club: 'Hull FC', number: 15, status: 'Established', img: 'https://upload.wikimedia.org/wikipedia/commons/1/15/James_Bell_Warriors.jpg',
+        bio: "A rugged and versatile back-rower who has become a cornerstone of Hull FC’s forward pack. A Scotland international, James brings experience, leadership and a tireless work ethic to every game he plays in Super League.",
+        bio2: "James believes in the game beyond the game — in the relationships, the character built in hard times, and the responsibility that comes with being a professional athlete. A true Sportsplayer man." },
+      { id: 'milne', name: 'Taane Milne', code: 'SUPER LEAGUE', position: 'Centre', club: 'Huddersfield Giants', number: 3, status: 'Established', img: 'https://upload.wikimedia.org/wikipedia/commons/9/92/Taane_Milne.jpg',
+        bio: "A versatile back who made the move to Super League with Huddersfield Giants after an impressive NRL career with the South Sydney Rabbitohs. Taane brings pace, power and footballing intelligence to every match.",
+        bio2: "A dedicated professional who has embraced the challenge of Super League, Taane brings the same commitment to excellence that defined his NRL career. An athlete who gives everything for his team." },
+      { id: 'niu', name: 'Tesi Niu', code: 'SUPER LEAGUE', position: 'Fullback', club: 'Leigh Leopards', number: 3, status: 'Established', img: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Tesi_Niu.jpg',
+        bio: "An explosive fullback who took his talents to Super League with Leigh Leopards. Tesi is a game-breaker with an eye for a gap and the pace to exploit it, bringing a strong NRL pedigree to the UK competition.",
+        bio2: "A hard-working and dedicated athlete who gives everything every time he takes the field, Tesi Niu exemplifies the values Sportsplayer stands for. His best years are still ahead of him." },
+      // Rugby Union
+      { id: 'ashby', name: 'Madison Ashby', code: 'RUGBY UNION', position: 'Centre', club: 'Australia Women’s Sevens', number: 10, status: 'Established', img: this.imgFor('spx-ashby'),
+        bio: "A superstar of the Australian Women’s Sevens programme and a Commonwealth Games gold medallist. Madison co-captained Australia Sevens and is one of the most dynamic centres in world rugby, combining speed, skill and natural leadership.",
+        bio2: "A champion of resilience — returning from a serious ACL injury to represent her country at the highest level — Madison Ashby’s story is the definition of Human First, Athlete Second." },
     ];
   }
 
   archives() {
     return [
-      { id: 'austin', name: 'Blake Austin', code: 'SUPER LEAGUE', position: 'Five-Eighth', club: 'Former \u2014 Leigh Leopards', img: this.imgFor('spx-austin') },
-      { id: 'ikahihifo', name: 'Sebastian Ikahihifo', code: 'NRL', position: 'Prop', club: 'Former \u2014 Cronulla Sharks', img: this.imgFor('spx-ikahihifo') },
-      { id: 'matangi', name: 'Suaia Matangi', code: 'NRL', position: 'Prop', club: 'Former \u2014 NZ Warriors', img: this.imgFor('spx-matangi') },
-      { id: 'naiya', name: 'Taqele Naiyaravoro', code: 'NRL', position: 'Winger', club: 'Former \u2014 Sydney Roosters', img: this.imgFor('spx-naiya') },
-      { id: 'will', name: 'Will Hopoate', code: 'NRL', position: 'Fullback', club: 'Former \u2014 Parramatta Eels', img: this.imgFor('spx-will') },
-      { id: 'mau', name: 'Manu Mau', code: 'NRL', position: 'Prop', club: 'Former \u2014 Parramatta Eels', img: this.imgFor('spx-mau') },
+      { id: 'austin', name: 'Blake Austin', code: 'SUPER LEAGUE', position: 'Five-Eighth', club: 'Former — Leeds Rhinos', img: 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Blake%20Austin%202014.jpg' },
+      { id: 'mau', name: 'Manu Ma’u', code: 'SUPER LEAGUE', position: 'Second Row', club: 'Former — Catalans Dragons', img: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Manu%20Ma%CA%BBu%20NZ.jpg' },
+      { id: 'ikahihifo', name: 'Sebastine Ikahihifo', code: 'SUPER LEAGUE', position: 'Prop', club: 'Former — Huddersfield Giants', img: 'https://upload.wikimedia.org/wikipedia/commons/7/73/Sebastine%20Ikahihifo.jpg' },
+      { id: 'matagi', name: 'Suaia Matagi', code: 'SUPER LEAGUE', position: 'Prop', club: 'Former — Castleford Tigers', img: 'https://upload.wikimedia.org/wikipedia/commons/8/86/Suaia%20Matagi.jpg' },
+      { id: 'naiya', name: 'Taqele Naiyaravoro', code: 'RUGBY UNION', position: 'Winger', club: 'Former — NSW Waratahs', img: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Taqele%20Naiyaravoro%20May%202013.jpg' },
+      { id: 'will', name: 'William Hopoate', code: 'SUPER LEAGUE', position: 'Fullback', club: 'Former — St Helens', img: 'https://upload.wikimedia.org/wikipedia/commons/2/20/William%20Hopoate.jpg' },
     ];
   }
-
 
   buildProfile(a) {
     const n = a.number || 7;
@@ -290,7 +338,7 @@ class Component extends DCLogic {
     return {
       ...a, firstName: first, numLabel: 'No. ' + (n < 10 ? '0' + n : n),
       bio: a.bio || (a.name + ' is a standout ' + a.position.toLowerCase() + ' for ' + a.club + ', representing the ' + a.code + '. Known for composure under pressure and a tireless work rate, ' + first + ' embodies the Human First, Athlete Second ethos both on and off the field.'),
-      bio2: a.bio2 || ('Beyond the game, ' + first + ' is committed to ongoing personal and professional development through the Sportsplayer Academy \u2014 the holistic representation that defines our roster.'),
+      bio2: a.bio2 || ('Beyond the game, ' + first + ' is committed to ongoing personal and professional development through the Sportsplayer Academy — the holistic representation that defines our roster.'),
       stats: [
         { label: 'Apps', value: apps }, { label: 'Tries', value: tries },
         { label: 'Tackle %', value: tackle + '%' }, { label: 'Run M', value: metres },
@@ -306,9 +354,9 @@ class Component extends DCLogic {
 
   renderVals() {
     const all = this.roster();
-    const codeList = ['All', 'NRL', 'NRLW', 'RUGBY UNION', 'SUPER LEAGUE'];
+    const codeList = ['All', 'NRL', 'NRLW', 'SUPER LEAGUE', 'RUGBY UNION'];
     const positions = [...new Set(all.map(a => a.position))].sort();
-    const clubs = [...new Set(all.map(a => a.club))].sort();
+    const clubs = [...new Set(all.filter(a => a.club !== 'Retired').map(a => a.club))].sort();
 
     const codes = codeList.map(c => ({
       label: c === 'All' ? 'All' : c,
@@ -332,7 +380,7 @@ class Component extends DCLogic {
     }));
 
     const menuData = [
-      { num: '01', label: 'Athletes', href: 'Sportsplayer Athletes.dc.html', seed: 'spx-patolo' },
+      { num: '01', label: 'Athletes', href: 'Sportsplayer Athletes.dc.html', seed: 'spx-talakai' },
       { num: '02', label: 'Academy', href: 'Sportsplayer Academy.dc.html', seed: 'spx-menu-academy' },
       { num: '03', label: 'Journal', href: 'Sportsplayer Journal.dc.html', seed: 'spx-menu-journal' },
       { num: '04', label: 'Culture', href: 'Sportsplayer Culture.dc.html', seed: 'spx-menu-culture' },
