@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;}html{scroll-behavior:smooth;}body{margin:0;background:#141416;}::selection{background:#E9FF4A;color:#141416;}::-webkit-scrollbar{width:9px;}::-webkit-scrollbar-track{background:#141416;}::-webkit-scrollbar-thumb{background:#2a2a2e;border-radius:20px;}</style>
+</helmet>
+<div style="background:#141416;color:#FAFAF7;font-family:Geist,sans-serif;min-height:100vh;overflow-x:hidden;">
+  <dc-import name="Sportsplayer Nav" active="About" hint-size="100%,76px"></dc-import>
+
+  <section style="padding:clamp(56px,8vw,120px) clamp(20px,4vw,64px) clamp(40px,5vw,64px);">
+    <div data-reveal style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8e8e8b;margin-bottom:22px;">[ About Sportsplayer ]</div>
+    <h1 data-reveal style="font-weight:700;font-size:clamp(40px,7vw,128px);line-height:.9;letter-spacing:-.04em;margin:0;max-width:16ch;">We represent the human, then the athlete.</h1>
+  </section>
+
+  <!-- STORY -->
+  <section style="padding:0 clamp(20px,4vw,64px) clamp(56px,7vw,100px);">
+    <div data-reveal style="display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(24px,4vw,72px);align-items:start;">
+      <div style="position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:#1b1b1e;position:sticky;top:90px;">
+        <img loading="lazy" src="https://picsum.photos/seed/spx-about-story/1000/1250?grayscale" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06) brightness(.85);">
+      </div>
+      <div style="font-size:clamp(16px,1.5vw,20px);line-height:1.7;color:#cbcbc5;">
+        <p style="margin:0 0 22px;">At Sportsplayer, we passionately represent the best interests of our clients — tirelessly aiding them in reaching their full potential in the ever-evolving arena of professional sport.</p>
+        <p style="margin:0 0 22px;color:#a8a8a3;">We operate under one motto: <span style="color:#fff;font-weight:600;">Human First, Athlete Second.</span> Because there's a substantial difference between merely making it and truly thriving as a dominant, preeminent professional.</p>
+        <p style="margin:0;color:#a8a8a3;">At the heart of our operations are two fundamental values — honesty and integrity. They form the backbone of our entire approach, and they're why we believe players should be rewarded commensurately with their worth.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section style="padding:0 clamp(20px,4vw,64px) clamp(56px,7vw,100px);">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.5vw,24px);">
+      <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+        <div data-reveal style="border-top:1px solid rgba(255,255,255,.14);padding-top:20px;">
+          <div style="font-weight:700;font-size:clamp(36px,4.5vw,72px);line-height:1;letter-spacing:-.03em;">{{ s.value }}</div>
+          <div style="font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:#8e8e8b;margin-top:12px;">{{ s.label }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section style="padding:clamp(56px,7vw,110px) clamp(20px,4vw,64px);background:#FAFAF7;color:#141416;">
+    <div data-reveal style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#6a6a67;margin-bottom:40px;">[ What we do ]</div>
+    <div style="display:flex;flex-direction:column;">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="3">
+        <a href="{{ s.href }}" data-reveal style="text-decoration:none;color:inherit;display:grid;grid-template-columns:64px 1.1fr 1.7fr auto;gap:clamp(16px,3vw,48px);align-items:center;padding:clamp(24px,3vw,38px) 0;border-top:1px solid rgba(20,20,22,.14);transition:padding-left .35s ease;" style-hover="padding-left:14px;">
+          <span style="font-family:'Geist Mono',monospace;font-size:13px;color:#141416;">{{ s.num }}</span>
+          <h3 style="font-weight:600;font-size:clamp(22px,2.6vw,38px);line-height:1;letter-spacing:-.02em;margin:0;">{{ s.title }}</h3>
+          <p style="font-size:15px;line-height:1.6;color:#55554f;margin:0;">{{ s.desc }}</p>
+          <span style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6a6a67;white-space:nowrap;">{{ s.cta }} →</span>
+        </a>
+      </sc-for>
+      <div style="border-top:1px solid rgba(20,20,22,.14);"></div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(64px,9vw,140px) clamp(20px,4vw,64px);text-align:center;">
+    <div data-reveal>
+      <h2 style="font-weight:700;font-size:clamp(32px,5vw,84px);line-height:.94;letter-spacing:-.03em;margin:0 0 28px;">One human story at a time.</h2>
+      <a href="Sportsplayer Contact.dc.html" style="text-decoration:none;background:#E9FF4A;color:#141416;font-weight:700;font-size:16px;padding:17px 34px;border-radius:40px;" style-hover="background:#fff;">Work with us →</a>
+    </div>
+  </section>
+
+  <dc-import name="Sportsplayer Footer" hint-size="100%,420px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  componentDidMount() { if (this._d) return; this._d = true; const els = [...document.querySelectorAll('[data-reveal]')]; const show = e => { e.style.opacity = '1'; e.style.transform = 'none'; }; const inv = e => { const r = e.getBoundingClientRect(); return r.top < innerHeight * 0.96 && r.bottom > 0; }; els.forEach(e => { e.style.opacity = '0'; e.style.transform = 'translateY(26px)'; e.style.transition = 'opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)'; }); els.forEach(e => { if (inv(e)) show(e); }); if ('IntersectionObserver' in window) { this._io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { show(x.target); this._io.unobserve(x.target); } }), { threshold: .08, rootMargin: '0px 0px -6% 0px' }); els.forEach(e => { if (e.style.opacity !== '1') this._io.observe(e); }); } this._f = setTimeout(() => els.forEach(show), 1100); }
+  componentWillUnmount() { if (this._io) this._io.disconnect(); if (this._f) clearTimeout(this._f); }
+  renderVals() {
+    return {
+      stats: [
+        { value: '40+', label: 'Athletes represented' },
+        { value: '+9k', label: 'Community' },
+        { value: '4', label: 'Codes — NRL · NRLW · RU · SL' },
+        { value: '100%', label: 'Human first' },
+      ],
+      services: [
+        { num: '01', title: 'Management', href: '#', cta: 'Representation', desc: 'Contract negotiation, endorsements, career management and post-career planning.' },
+        { num: '02', title: 'Academy', href: 'Sportsplayer Academy.dc.html', cta: 'Explore', desc: 'Content and coaching that gives young athletes an edge on and off the field.' },
+        { num: '03', title: 'Magazine', href: 'Sportsplayer Journal.dc.html', cta: 'Read', desc: 'Stories, interviews and insight into the lives behind the athletes.' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;}html{scroll-behavior:smooth;}body{margin:0;background:#141416;}::selection{background:#E9FF4A;color:#141416;}::-webkit-scrollbar{width:9px;}::-webkit-scrollbar-track{background:#141416;}::-webkit-scrollbar-thumb{background:#2a2a2e;border-radius:20px;}input::placeholder{color:#6a6a67;}</style>
+</helmet>
+<div style="background:#141416;color:#FAFAF7;font-family:Geist,sans-serif;min-height:100vh;overflow-x:hidden;">
+  <dc-import name="Sportsplayer Nav" active="Academy" hint-size="100%,76px"></dc-import>
+
+  <!-- HERO -->
+  <section style="padding:clamp(56px,8vw,120px) clamp(20px,4vw,64px) clamp(36px,4vw,56px);">
+    <div data-reveal style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8e8e8b;margin-bottom:22px;">[ Sportsplayer Academy ]</div>
+    <h1 data-reveal style="font-weight:700;font-size:clamp(48px,9vw,150px);line-height:.88;letter-spacing:-.04em;margin:0 0 28px;">Sharpen<br>the edge.</h1>
+    <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:28px;">
+      <p style="font-size:clamp(15px,1.4vw,19px);line-height:1.6;color:#a8a8a3;max-width:540px;margin:0;">Our goal is to deliver accurate, relevant content that gives young athletes an edge — on and off the field. The Academy Hub publishes a weekly newsletter and fresh material built around the whole human.</p>
+      <a href="#hub" style="text-decoration:none;background:#FAFAF7;color:#141416;font-weight:600;font-size:15px;padding:15px 26px;border-radius:40px;" style-hover="background:#E9FF4A;">Join the Academy Hub →</a>
+    </div>
+  </section>
+
+  <!-- IMAGE BAND -->
+  <section style="padding:0 clamp(20px,4vw,64px);">
+    <div data-reveal style="position:relative;border-radius:20px;overflow:hidden;aspect-ratio:21/8;background:#1b1b1e;">
+      <img loading="lazy" src="https://picsum.photos/seed/spx-academy-band/2000/780?grayscale" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06) brightness(.7);">
+      <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(17,17,19,.7),rgba(17,17,19,.1));"></div>
+      <div style="position:absolute;left:0;bottom:0;padding:clamp(24px,3vw,44px);max-width:620px;">
+        <div style="font-weight:600;font-size:clamp(22px,2.6vw,38px);line-height:1.08;letter-spacing:-.02em;">Development never stops at the final whistle.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILLARS -->
+  <section style="padding:clamp(64px,8vw,120px) clamp(20px,4vw,64px);">
+    <div data-reveal style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8e8e8b;margin-bottom:40px;">[ What we teach ]</div>
+    <div style="display:flex;flex-direction:column;">
+      <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="5">
+        <div data-reveal style="display:grid;grid-template-columns:64px 1.1fr 1.7fr;gap:clamp(16px,3vw,48px);align-items:start;padding:clamp(24px,3vw,38px) 0;border-top:1px solid rgba(255,255,255,.12);">
+          <span style="font-family:'Geist Mono',monospace;font-size:13px;color:#E9FF4A;">{{ p.num }}</span>
+          <h3 style="font-weight:600;font-size:clamp(22px,2.6vw,36px);line-height:1.02;letter-spacing:-.02em;margin:0;">{{ p.title }}</h3>
+          <p style="font-size:15px;line-height:1.65;color:#9a9a96;margin:0;max-width:560px;">{{ p.desc }}</p>
+        </div>
+      </sc-for>
+      <div style="border-top:1px solid rgba(255,255,255,.12);"></div>
+    </div>
+  </section>
+
+  <!-- HUB NEWSLETTER -->
+  <section id="hub" style="background:#FAFAF7;color:#141416;padding:clamp(72px,10vw,150px) clamp(20px,4vw,64px);">
+    <div data-reveal style="max-width:760px;">
+      <div style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#6a6a67;margin-bottom:26px;">[ The Academy Hub / Weekly ]</div>
+      <h2 style="font-weight:700;font-size:clamp(34px,5vw,72px);line-height:.94;letter-spacing:-.03em;margin:0 0 24px;">One newsletter.<br>Every advantage.</h2>
+      <p style="font-size:17px;line-height:1.65;color:#55554f;margin:0 0 34px;max-width:560px;">Fresh content every week to assist our athletes' ongoing development — straight to your inbox.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;max-width:520px;">
+        <input placeholder="you@email.com" style="flex:1;min-width:220px;background:#fff;border:1px solid rgba(20,20,22,.2);border-radius:40px;padding:15px 22px;font-family:Geist,sans-serif;font-size:15px;color:#141416;outline:none;" style-focus="border-color:#141416;">
+        <button style="background:#141416;color:#FAFAF7;border:none;font-family:Geist,sans-serif;font-weight:700;font-size:15px;padding:15px 28px;border-radius:40px;cursor:pointer;" style-hover="background:#333;">Subscribe</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="padding:clamp(64px,9vw,140px) clamp(20px,4vw,64px);text-align:center;">
+    <div data-reveal>
+      <h2 style="font-weight:700;font-size:clamp(34px,6vw,92px);line-height:.92;letter-spacing:-.03em;margin:0 0 30px;">Build the whole athlete.</h2>
+      <a href="Sportsplayer Athletes.dc.html" style="text-decoration:none;background:#E9FF4A;color:#141416;font-weight:700;font-size:16px;padding:17px 34px;border-radius:40px;" style-hover="background:#fff;">Meet our athletes →</a>
+    </div>
+  </section>
+
+  <dc-import name="Sportsplayer Footer" hint-size="100%,420px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    if (this._d) return; this._d = true;
+    const els = [...document.querySelectorAll('[data-reveal]')];
+    const show = e => { e.style.opacity = '1'; e.style.transform = 'none'; };
+    const inv = e => { const r = e.getBoundingClientRect(); return r.top < innerHeight * 0.95 && r.bottom > 0; };
+    els.forEach(e => { e.style.opacity = '0'; e.style.transform = 'translateY(26px)'; e.style.transition = 'opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)'; });
+    els.forEach(e => { if (inv(e)) show(e); });
+    if ('IntersectionObserver' in window) { this._io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { show(x.target); this._io.unobserve(x.target); } }), { threshold: .08, rootMargin: '0px 0px -6% 0px' }); els.forEach(e => { if (e.style.opacity !== '1') this._io.observe(e); }); }
+    this._f = setTimeout(() => els.forEach(show), 1100);
+  }
+  componentWillUnmount() { if (this._io) this._io.disconnect(); if (this._f) clearTimeout(this._f); }
+  renderVals() {
+    return {
+      pillars: [
+        { num: '01', title: 'Mindset & resilience', desc: 'The mental side of elite sport — handling pressure, setbacks and the spotlight, with the tools to keep growing through every season.' },
+        { num: '02', title: 'Nutrition & recovery', desc: 'Fuelling and recovering like a professional, with practical guidance built for the demands of the modern game.' },
+        { num: '03', title: 'Media & personal brand', desc: 'Owning your story on and off the field — interviews, social, and building a brand that reflects the human first.' },
+        { num: '04', title: 'Financial literacy', desc: 'Understanding contracts, earnings and long-term planning so athletes are rewarded commensurately with their worth.' },
+        { num: '05', title: 'Life after the game', desc: 'Post-career planning and pathways that begin long before the final whistle — because the human outlasts the athlete.' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

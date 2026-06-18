@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:#141416;}
+  ::selection{background:#E9FF4A;color:#141416;}
+  ::-webkit-scrollbar{width:9px;height:9px;}
+  ::-webkit-scrollbar-track{background:#141416;}
+  ::-webkit-scrollbar-thumb{background:#2a2a2e;border-radius:20px;}
+  @keyframes spx-ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+  @keyframes spx-pulse{0%,100%{opacity:.4;}50%{opacity:1;}}
+  input::placeholder{color:#6a6a67;}
+</style>
+</helmet>
+<div style="background:#141416;color:#FAFAF7;font-family:Geist,sans-serif;min-height:100vh;overflow-x:hidden;position:relative;">
+
+  <!-- TOP BAR -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:50;mix-blend-mode:difference;">
+    <div style="padding:22px clamp(20px,4vw,64px);display:flex;align-items:center;justify-content:space-between;">
+      <a href="#top" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;">
+        <span style="width:11px;height:11px;background:#fff;border-radius:50%;"></span>
+        <span style="font-weight:700;font-size:17px;letter-spacing:-.01em;">Sportsplayer</span>
+      </a>
+      <button onClick="{{ openMenu }}" style="display:flex;align-items:center;gap:12px;background:none;border:none;color:#fff;cursor:pointer;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:6px 0;">
+        <span style="display:flex;flex-direction:column;gap:4px;width:22px;">
+          <span style="height:2px;background:#fff;width:100%;"></span>
+          <span style="height:2px;background:#fff;width:100%;"></span>
+        </span>
+        Menu
+      </button>
+    </div>
+  </header>
+
+  <!-- FULL-SCREEN MENU -->
+  <div style="{{ menuOuterStyle }}">
+    <div style="position:absolute;inset:0;overflow:hidden;">
+      <img ref="{{ setImg }}" src="https://picsum.photos/seed/spx-menu-default/1200/1400?grayscale" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05) brightness(.5);opacity:.45;transition:opacity .6s ease;">
+      <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(17,17,19,.96) 30%,rgba(17,17,19,.55) 100%);"></div>
+    </div>
+    <div style="position:relative;height:100%;display:flex;flex-direction:column;padding:26px clamp(20px,4vw,64px);">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <a href="#top" onClick="{{ closeMenu }}" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;">
+          <span style="width:11px;height:11px;background:#E9FF4A;border-radius:50%;"></span>
+          <span style="font-weight:700;font-size:17px;">Sportsplayer</span>
+        </a>
+        <button onClick="{{ closeMenu }}" style="display:flex;align-items:center;gap:12px;background:none;border:none;color:#fff;cursor:pointer;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;">
+          Close ✕
+        </button>
+      </div>
+      <nav style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:2px;max-width:900px;">
+        <sc-for list="{{ menuItems }}" as="m" hint-placeholder-count="7">
+          <a href="{{ m.href }}" onClick="{{ m.onClick }}" onMouseEnter="{{ m.onHover }}" style="display:flex;align-items:baseline;gap:22px;text-decoration:none;color:#888;padding:clamp(4px,1vw,10px) 0;transition:color .25s,padding-left .35s ease;" style-hover="color:#fff;padding-left:18px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:13px;color:#E9FF4A;flex:none;width:32px;">{{ m.num }}</span>
+            <span style="font-weight:600;font-size:clamp(34px,6vw,72px);line-height:1;letter-spacing:-.02em;">{{ m.label }}</span>
+          </a>
+        </sc-for>
+      </nav>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;border-top:1px solid rgba(255,255,255,.12);padding-top:22px;">
+        <div style="display:flex;gap:22px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#888;">
+          <a href="#" style="color:#888;text-decoration:none;" style-hover="color:#fff;">Instagram</a>
+          <a href="#" style="color:#888;text-decoration:none;" style-hover="color:#fff;">YouTube</a>
+          <a href="#" style="color:#888;text-decoration:none;" style-hover="color:#fff;">LinkedIn</a>
+        </div>
+        <a href="#" style="text-decoration:none;background:#E9FF4A;color:#141416;font-weight:700;font-size:14px;padding:13px 26px;border-radius:40px;" style-hover="background:#fff;">Become a client →</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section style="position:relative;min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;">
+      <img data-parallax-speed="0.12" src="https://picsum.photos/seed/spx-hero-run/1920/2000?grayscale" alt="" style="position:absolute;inset:0;width:100%;height:115%;object-fit:cover;filter:grayscale(1) contrast(1.08) brightness(.62);">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,17,19,.55) 0%,rgba(17,17,19,.2) 38%,rgba(17,17,19,.92) 100%);"></div>
+      <div style="position:relative;z-index:2;width:100%;padding:0 clamp(20px,4vw,64px) clamp(40px,6vw,80px);">
+        <div data-reveal style="display:flex;align-items:center;gap:12px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#cfcfca;margin-bottom:28px;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#E9FF4A;animation:spx-pulse 2.4s ease-in-out infinite;"></span>
+          Sports Management &amp; Academy — Sydney
+        </div>
+        <h1 data-reveal style="font-weight:700;font-size:clamp(56px,11vw,184px);line-height:.9;letter-spacing:-.04em;margin:0;max-width:14ch;">
+          Human first.<br>Athlete <span style="position:relative;white-space:nowrap;">second<span style="position:absolute;left:0;right:0;bottom:.12em;height:.08em;background:#E9FF4A;"></span></span>.
+        </h1>
+        <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:28px;margin-top:38px;">
+          <p style="font-size:clamp(15px,1.4vw,19px);line-height:1.6;color:#c4c4bf;max-width:480px;margin:0;">We represent the best interests of our clients — guiding athletes through contracts, endorsements and the whole human story. Built on honesty and integrity.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;">
+            <a href="Sportsplayer Athletes.dc.html" style="text-decoration:none;background:#FAFAF7;color:#141416;font-weight:600;font-size:15px;padding:15px 26px;border-radius:40px;display:inline-flex;align-items:center;gap:9px;" style-hover="background:#E9FF4A;">View the roster →</a>
+            <a href="#culture" style="text-decoration:none;color:#fff;border:1px solid rgba(255,255,255,.28);font-weight:500;font-size:15px;padding:14px 24px;border-radius:40px;" style-hover="border-color:#fff;background:rgba(255,255,255,.06);">Our philosophy</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TICKER -->
+    <div style="background:#FAFAF7;color:#141416;overflow:hidden;white-space:nowrap;">
+      <div style="display:inline-flex;animation:spx-ticker 38s linear infinite;will-change:transform;">
+        <span style="display:inline-flex;align-items:center;font-family:'Geist Mono',monospace;font-weight:500;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:11px 0;">
+          <span style="padding:0 26px;">NRL</span><span>/</span><span style="padding:0 26px;">NRLW</span><span>/</span><span style="padding:0 26px;">Rugby Union</span><span>/</span><span style="padding:0 26px;">Super League</span><span>/</span><span style="padding:0 26px;">40+ athletes represented</span><span>/</span><span style="padding:0 26px;">+9k community</span><span>/</span>
+        </span>
+        <span style="display:inline-flex;align-items:center;font-family:'Geist Mono',monospace;font-weight:500;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:11px 0;" aria-hidden="true">
+          <span style="padding:0 26px;">NRL</span><span>/</span><span style="padding:0 26px;">NRLW</span><span>/</span><span style="padding:0 26px;">Rugby Union</span><span>/</span><span style="padding:0 26px;">Super League</span><span>/</span><span style="padding:0 26px;">40+ athletes represented</span><span>/</span><span style="padding:0 26px;">+9k community</span><span>/</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- FEATURED ATHLETES -->
+    <section id="athletes" style="padding:clamp(64px,8vw,120px) clamp(20px,4vw,64px);">
+      <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:48px;">
+        <div>
+          <div style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8e8e8b;margin-bottom:18px;">[ Featured / On the roster ]</div>
+          <h2 style="font-weight:700;font-size:clamp(40px,6vw,92px);line-height:.92;letter-spacing:-.03em;margin:0;">The athletes.</h2>
+        </div>
+        <a href="Sportsplayer Athletes.dc.html" style="text-decoration:none;color:#fff;border:1px solid rgba(255,255,255,.22);font-weight:500;font-size:14px;padding:13px 24px;border-radius:40px;display:inline-flex;align-items:center;gap:9px;" style-hover="border-color:#E9FF4A;color:#E9FF4A;">All athletes &amp; filters →</a>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,1.4vw,22px);">
+        <sc-for list="{{ featured }}" as="a" hint-placeholder-count="4">
+          <article data-reveal onClick="{{ a.onOpen }}" style="cursor:pointer;position:relative;border-radius:18px;overflow:hidden;background:#1b1b1e;aspect-ratio:3/4.1;">
+            <img loading="lazy" src="{{ a.img }}" alt="{{ a.name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06);transition:transform .8s cubic-bezier(.16,1,.3,1);" style-hover="transform:scale(1.05);">
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,17,19,.05) 30%,rgba(17,17,19,.92) 100%);"></div>
+            <div style="position:absolute;top:16px;right:16px;font-family:'Geist Mono',monospace;font-weight:500;font-size:13px;color:rgba(255,255,255,.5);">{{ a.numLabel }}</div>
+            <div style="position:absolute;top:16px;left:16px;display:flex;gap:7px;">
+              <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:rgba(20,20,22,.55);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);color:#fff;padding:5px 10px;border-radius:30px;">{{ a.code }}</span>
+            </div>
+            <div style="position:absolute;left:0;right:0;bottom:0;padding:20px 18px;">
+              <div style="font-weight:700;font-size:24px;line-height:1.02;letter-spacing:-.01em;">{{ a.name }}</div>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:9px;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:#bdbdb8;">
+                <span>{{ a.position }}</span><span style="color:#5c5c58;">·</span><span>{{ a.club }}</span>
+              </div>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- ETHOS / CULTURE -->
+    <section id="culture" style="background:#FAFAF7;color:#141416;padding:clamp(80px,11vw,180px) clamp(20px,4vw,64px);">
+      <div data-reveal style="max-width:1100px;">
+        <div style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#6a6a67;margin-bottom:34px;">[ Human First, Athlete Second ]</div>
+        <h2 style="font-weight:600;font-size:clamp(30px,4.6vw,68px);line-height:1.04;letter-spacing:-.025em;margin:0 0 40px;">There's a substantial difference between merely <span style="color:#9a9a96;">making it</span> — and truly thriving as a dominant, preeminent professional.</h2>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,48px);max-width:920px;">
+          <div>
+            <div style="font-family:'Geist Mono',monospace;font-size:12px;color:#141416;border-top:2px solid #141416;padding-top:14px;margin-bottom:10px;">01 — Honesty</div>
+            <p style="font-size:15px;line-height:1.6;color:#55554f;margin:0;">Players should be rewarded commensurately with their worth. No spin, no games.</p>
+          </div>
+          <div>
+            <div style="font-family:'Geist Mono',monospace;font-size:12px;color:#141416;border-top:2px solid #141416;padding-top:14px;margin-bottom:10px;">02 — Integrity</div>
+            <p style="font-size:15px;line-height:1.6;color:#55554f;margin:0;">We treat every athlete as an individual, first and foremost. Character before contracts.</p>
+          </div>
+          <div>
+            <div style="font-family:'Geist Mono',monospace;font-size:12px;color:#141416;border-top:2px solid #141416;padding-top:14px;margin-bottom:10px;">03 — The whole human</div>
+            <p style="font-size:15px;line-height:1.6;color:#55554f;margin:0;">Holistic development on and off the field — through the Sportsplayer Academy.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="academy" style="padding:clamp(64px,8vw,120px) clamp(20px,4vw,64px);">
+      <div data-reveal style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8e8e8b;margin-bottom:40px;">[ What we do ]</div>
+      <div style="display:flex;flex-direction:column;">
+        <sc-for list="{{ services }}" as="s" hint-placeholder-count="3">
+          <a href="{{ s.href }}" data-reveal style="text-decoration:none;color:inherit;display:grid;grid-template-columns:64px 1.1fr 1.6fr auto;gap:clamp(16px,3vw,48px);align-items:center;padding:clamp(24px,3vw,40px) 0;border-top:1px solid rgba(255,255,255,.12);transition:padding-left .35s ease;" style-hover="padding-left:14px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:13px;color:#E9FF4A;">{{ s.num }}</span>
+            <h3 style="font-weight:600;font-size:clamp(24px,3vw,40px);line-height:1;letter-spacing:-.02em;margin:0;">{{ s.title }}</h3>
+            <p style="font-size:15px;line-height:1.6;color:#9a9a96;margin:0;">{{ s.desc }}</p>
+            <span style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#8e8e8b;white-space:nowrap;">{{ s.cta }} →</span>
+          </a>
+        </sc-for>
+        <div style="border-top:1px solid rgba(255,255,255,.12);"></div>
+      </div>
+    </section>
+
+    <!-- JOURNAL -->
+    <section id="journal" style="padding:0 clamp(20px,4vw,64px) clamp(72px,9vw,140px);">
+      <div data-reveal style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:40px;">
+        <div>
+          <div style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8e8e8b;margin-bottom:18px;">[ Sportsplayer Magazine ]</div>
+          <h2 style="font-weight:700;font-size:clamp(40px,6vw,92px);line-height:.92;letter-spacing:-.03em;margin:0;">The Journal.</h2>
+        </div>
+        <a href="#" style="text-decoration:none;color:#fff;border:1px solid rgba(255,255,255,.22);font-weight:500;font-size:14px;padding:13px 24px;border-radius:40px;" style-hover="border-color:#E9FF4A;color:#E9FF4A;">All stories →</a>
+      </div>
+      <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:clamp(14px,1.6vw,24px);">
+        <sc-for list="{{ journal }}" as="post" hint-placeholder-count="3">
+          <a href="#" data-reveal style="text-decoration:none;color:inherit;display:block;">
+            <div style="position:relative;aspect-ratio:16/11;border-radius:16px;overflow:hidden;background:#1b1b1e;margin-bottom:18px;">
+              <img loading="lazy" src="{{ post.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:transform .8s cubic-bezier(.16,1,.3,1);" style-hover="transform:scale(1.04);">
+              <span style="position:absolute;top:14px;left:14px;font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:rgba(20,20,22,.55);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);color:#fff;padding:5px 11px;border-radius:30px;">{{ post.tag }}</span>
+            </div>
+            <div style="font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:#6a6a67;margin-bottom:10px;">{{ post.date }}</div>
+            <h3 style="font-weight:600;font-size:clamp(19px,1.6vw,24px);line-height:1.12;letter-spacing:-.01em;margin:0;">{{ post.title }}</h3>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- FOUNDER -->
+    <section id="founder" style="position:relative;overflow:hidden;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;min-height:80vh;">
+        <div style="position:relative;overflow:hidden;background:#1b1b1e;min-height:50vh;">
+          <img data-parallax-speed="0.08" loading="lazy" src="https://picsum.photos/seed/spx-tyran-founder/1200/1500?grayscale" alt="Tyran Smith" style="position:absolute;inset:0;width:100%;height:112%;object-fit:cover;filter:grayscale(1) contrast(1.08) brightness(.82);">
+          <div style="position:absolute;left:0;right:0;bottom:0;padding:28px;background:linear-gradient(to top,rgba(17,17,19,.85),transparent);">
+            <div style="font-weight:700;font-size:26px;">Tyran Smith</div>
+            <div style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.06em;color:#E9FF4A;margin-top:6px;">FOUNDER · CEO · PLAYER AGENT</div>
+          </div>
+        </div>
+        <div data-reveal style="display:flex;flex-direction:column;justify-content:center;padding:clamp(40px,6vw,96px) clamp(20px,4vw,72px);">
+          <div style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8e8e8b;margin-bottom:24px;">[ The Founder ]</div>
+          <h2 style="font-weight:700;font-size:clamp(30px,3.6vw,56px);line-height:1;letter-spacing:-.025em;margin:0 0 26px;">More than an agent.<br>A standard.</h2>
+          <p style="font-size:16px;line-height:1.7;color:#a8a8a3;margin:0 0 18px;">A former professional Rugby League player, Tyran founded Sportsplayer on two cardinal values: honesty and integrity. His years on the field instilled a deep understanding of the pressures athletes face — and a determination to change the culture of the game.</p>
+          <p style="font-size:16px;line-height:1.7;color:#a8a8a3;margin:0 0 32px;">His vision reaches far beyond the field — nurturing the talent and the human spirit within every player he represents.</p>
+          <a href="#" style="text-decoration:none;align-self:flex-start;background:#FAFAF7;color:#141416;font-weight:600;font-size:14px;padding:14px 26px;border-radius:40px;" style-hover="background:#E9FF4A;">Read Tyran's story →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="padding:clamp(72px,10vw,160px) clamp(20px,4vw,64px);text-align:center;">
+      <div data-reveal>
+        <div style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8e8e8b;margin-bottom:30px;">[ Ready when you are ]</div>
+        <h2 style="font-weight:700;font-size:clamp(44px,9vw,150px);line-height:.9;letter-spacing:-.04em;margin:0 0 40px;">Be represented.</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
+          <a href="Sportsplayer Contact.dc.html" style="text-decoration:none;background:#E9FF4A;color:#141416;font-weight:700;font-size:16px;padding:17px 34px;border-radius:40px;" style-hover="background:#fff;">Contact us</a>
+          <a href="Sportsplayer Athletes.dc.html" style="text-decoration:none;color:#fff;border:1px solid rgba(255,255,255,.28);font-weight:500;font-size:16px;padding:16px 32px;border-radius:40px;" style-hover="border-color:#fff;background:rgba(255,255,255,.05);">View athletes</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="team" style="border-top:1px solid rgba(255,255,255,.1);padding:clamp(48px,6vw,80px) clamp(20px,4vw,64px) 36px;">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+          <span style="width:11px;height:11px;background:#E9FF4A;border-radius:50%;"></span>
+          <span style="font-weight:700;font-size:18px;">Sportsplayer</span>
+        </div>
+        <p style="color:#8e8e8b;font-size:14px;line-height:1.6;max-width:300px;margin:0;">Human First, Athlete Second. Representing athletes across the NRL, NRLW, Rugby Union and Super League.</p>
+      </div>
+      <div>
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6a6a67;margin-bottom:16px;">Explore</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-size:14px;">
+          <a href="Sportsplayer Athletes.dc.html" style="color:#c4c4bf;text-decoration:none;" style-hover="color:#E9FF4A;">Athletes</a>
+          <a href="Sportsplayer Academy.dc.html" style="color:#c4c4bf;text-decoration:none;" style-hover="color:#E9FF4A;">Academy</a>
+          <a href="Sportsplayer Journal.dc.html" style="color:#c4c4bf;text-decoration:none;" style-hover="color:#E9FF4A;">Journal</a>
+          <a href="Sportsplayer Scholarships.dc.html" style="color:#c4c4bf;text-decoration:none;" style-hover="color:#E9FF4A;">Scholarships</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6a6a67;margin-bottom:16px;">Company</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-size:14px;">
+          <a href="Sportsplayer Culture.dc.html" style="color:#c4c4bf;text-decoration:none;" style-hover="color:#E9FF4A;">Culture</a>
+          <a href="Sportsplayer Culture.dc.html" style="color:#c4c4bf;text-decoration:none;" style-hover="color:#E9FF4A;">HFAS</a>
+          <a href="Sportsplayer Tyran Smith.dc.html" style="color:#c4c4bf;text-decoration:none;" style-hover="color:#E9FF4A;">Tyran Smith</a>
+          <a href="Sportsplayer About.dc.html" style="color:#c4c4bf;text-decoration:none;" style-hover="color:#E9FF4A;">About</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6a6a67;margin-bottom:16px;">Connect</div>
+        <div style="display:flex;flex-direction:column;gap:11px;font-size:14px;">
+          <a href="Sportsplayer Contact.dc.html" style="color:#c4c4bf;text-decoration:none;" style-hover="color:#E9FF4A;">Contact Us</a>
+          <a href="#" style="color:#c4c4bf;text-decoration:none;" style-hover="color:#E9FF4A;">Instagram</a>
+          <a href="#" style="color:#c4c4bf;text-decoration:none;" style-hover="color:#E9FF4A;">YouTube</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:#6a6a67;">
+      <span>© 2026 Sportsplayer Management</span>
+      <span>Human First, Athlete Second.</span>
+    </div>
+  </footer>
+
+  <!-- PROFILE OVERLAY -->
+  <sc-if value="{{ selected }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeProfile }}" style="position:fixed;inset:0;z-index:100;background:rgba(8,8,9,.7);backdrop-filter:blur(10px);display:flex;justify-content:flex-end;">
+      <div onClick="{{ stop }}" style="width:min(720px,100%);height:100%;overflow-y:auto;background:#141416;border-left:1px solid rgba(255,255,255,.1);">
+        <div style="position:relative;aspect-ratio:16/13;overflow:hidden;background:#1b1b1e;">
+          <img src="{{ selected.img }}" alt="{{ selected.name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06);">
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,17,19,.1) 40%,rgba(17,17,19,.96) 100%);"></div>
+          <div style="position:absolute;top:18px;right:18px;font-family:'Geist Mono',monospace;font-size:14px;color:rgba(255,255,255,.6);">{{ selected.numLabel }}</div>
+          <button onClick="{{ closeProfile }}" style="position:absolute;top:16px;left:18px;width:40px;height:40px;border-radius:50%;background:rgba(20,20,22,.55);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:15px;cursor:pointer;z-index:5;" style-hover="background:#E9FF4A;color:#141416;">✕</button>
+          <div style="position:absolute;left:0;right:0;bottom:0;padding:30px;">
+            <div style="display:flex;gap:7px;margin-bottom:14px;">
+              <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;padding:6px 12px;border-radius:30px;">{{ selected.code }}</span>
+              <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;padding:6px 12px;border-radius:30px;">{{ selected.status }}</span>
+            </div>
+            <div style="font-weight:700;font-size:clamp(36px,6vw,60px);line-height:.96;letter-spacing:-.02em;">{{ selected.name }}</div>
+            <div style="display:flex;align-items:center;gap:10px;margin-top:12px;font-family:'Geist Mono',monospace;font-size:13px;color:#bdbdb8;">
+              <span>{{ selected.position }}</span><span style="color:#5c5c58;">·</span><span>{{ selected.club }}</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding:32px 30px 56px;">
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:38px;">
+            <sc-for list="{{ selected.stats }}" as="s" hint-placeholder-count="4">
+              <div style="border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:18px 12px;">
+                <div style="font-weight:700;font-size:30px;line-height:1;letter-spacing:-.02em;">{{ s.value }}</div>
+                <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#8e8e8b;margin-top:9px;">{{ s.label }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#E9FF4A;margin-bottom:14px;">The Story</div>
+          <p style="font-size:16px;line-height:1.75;color:#d2d2cd;margin:0 0 16px;">{{ selected.bio }}</p>
+          <p style="font-size:16px;line-height:1.75;color:#a8a8a3;margin:0 0 40px;">{{ selected.bio2 }}</p>
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#E9FF4A;margin-bottom:22px;">Career Timeline</div>
+          <div style="display:flex;flex-direction:column;">
+            <sc-for list="{{ selected.timeline }}" as="t" hint-placeholder-count="4">
+              <div style="display:grid;grid-template-columns:70px 1fr;gap:20px;padding-bottom:26px;">
+                <div style="font-family:'Geist Mono',monospace;font-weight:500;font-size:15px;color:#E9FF4A;">{{ t.year }}</div>
+                <div style="border-left:1px solid rgba(255,255,255,.14);padding-left:22px;position:relative;">
+                  <span style="position:absolute;left:-5px;top:5px;width:9px;height:9px;border-radius:50%;background:#E9FF4A;"></span>
+                  <div style="font-size:15px;line-height:1.55;color:#d2d2cd;">{{ t.text }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;">
+            <a href="#" style="text-decoration:none;background:#E9FF4A;color:#141416;font-weight:700;font-size:14px;padding:14px 24px;border-radius:40px;" style-hover="background:#fff;">Enquire about {{ selected.firstName }} →</a>
+            <button onClick="{{ closeProfile }}" style="background:none;border:1px solid rgba(255,255,255,.2);color:#FAFAF7;font-family:Geist,sans-serif;font-weight:500;font-size:14px;padding:13px 22px;border-radius:40px;cursor:pointer;" style-hover="border-color:#fff;">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { menuOpen: false, menuImg: 'https://picsum.photos/seed/spx-menu-default/1200/1400?grayscale', selectedId: null };
+
+  componentDidMount() {
+    if (this._setupDone) return;
+    this._setupDone = true;
+    const els = Array.from(document.querySelectorAll('[data-reveal]'));
+    const reveal = (el) => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; };
+    const inView = (el) => { const r = el.getBoundingClientRect(); return r.top < window.innerHeight * 0.96 && r.bottom > 0; };
+    els.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(28px)';
+      el.style.transition = 'opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1)';
+    });
+    els.forEach(el => { if (inView(el)) reveal(el); });
+    if ('IntersectionObserver' in window) {
+      this._io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { reveal(e.target); this._io.unobserve(e.target); } });
+      }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+      els.forEach(el => { if (el.style.opacity !== '1') this._io.observe(el); });
+    }
+    this._revealFallback = setTimeout(() => els.forEach(reveal), 1100);
+
+    this._px = Array.from(document.querySelectorAll('[data-parallax-speed]'));
+    this._vh = window.innerHeight;
+    this._ticking = false;
+    this._onScroll = () => {
+      if (this._ticking) return;
+      this._ticking = true;
+      requestAnimationFrame(() => {
+        this._px.forEach(el => {
+          const r = el.getBoundingClientRect();
+          const center = r.top + r.height / 2 - this._vh / 2;
+          const speed = parseFloat(el.getAttribute('data-parallax-speed')) || 0;
+          el.style.transform = 'translate3d(0,' + (center * speed) + 'px,0)';
+        });
+        this._ticking = false;
+      });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    window.addEventListener('resize', () => { this._vh = window.innerHeight; });
+    this._onScroll();
+  }
+
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+    if (this._revealFallback) clearTimeout(this._revealFallback);
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+  }
+
+  accentFor(code) { return '#E9FF4A'; }
+  imgFor(seed) { return 'https://picsum.photos/seed/' + seed + '/900/1200?grayscale'; }
+
+  roster() {
+    return [
+      { id: 'patolo', name: 'Chris Patolo', code: 'NRL', position: 'Back Rower', club: 'Canterbury', number: 14, status: 'Rising', img: this.imgFor('spx-patolo'),
+        bio: 'A pure powerhouse soon to burst onto the NRL scene — an offensive brute and defensive technician in equal measure. A local junior from the Bankstown Sports club, Patolo developed through the club\u2019s Harold Matthews and SG Ball sides before representing the NSWCCC.',
+        bio2: 'A graduate of the club\u2019s High-Performance Youth Program, he brings relentless physicality and a footballer\u2019s brain to the edge or the middle \u2014 exactly the kind of human-first talent Sportsplayer is built to champion.' },
+      { id: 'reti', name: 'Jada Reti', code: 'NRLW', position: 'Halfback', club: 'Broncos', number: 7, status: 'Captain', img: this.imgFor('spx-reti') },
+      { id: 'tupou', name: 'Maui Tupou', code: 'RUGBY UNION', position: 'Centre', club: 'Waratahs', number: 13, status: 'Established', img: this.imgFor('spx-tupou') },
+      { id: 'brennan', name: 'Eli Brennan', code: 'SUPER LEAGUE', position: 'Five-Eighth', club: 'Leeds', number: 6, status: 'Established', img: this.imgFor('spx-brennan') },
+      { id: 'vunipola', name: 'Latrell Vunipola', code: 'NRL', position: 'Prop', club: 'Sea Eagles', number: 10, status: 'Established', img: this.imgFor('spx-vunipola') },
+      { id: 'faleolo', name: 'T\u00e9a Faleolo', code: 'NRLW', position: 'Fullback', club: 'Roosters', number: 1, status: 'Rising', img: this.imgFor('spx-faleolo') },
+      { id: 'katoa', name: 'Solomon Katoa', code: 'NRL', position: 'Winger', club: 'Sharks', number: 2, status: 'Rising', img: this.imgFor('spx-katoa') },
+      { id: 'tagaloa', name: 'Mia Tagaloa', code: 'NRLW', position: 'Lock', club: 'Dragons', number: 13, status: 'Established', img: this.imgFor('spx-tagaloa') },
+    ];
+  }
+
+  buildProfile(a) {
+    const n = a.number || 7;
+    const apps = 18 + ((n * 7) % 120);
+    const tries = 4 + ((n * 3) % 28);
+    const tackle = 78 + ((n * 5) % 20);
+    const metres = 60 + ((n * 11) % 90);
+    const first = a.name.split(' ')[0];
+    return {
+      ...a, firstName: first, numLabel: 'No. ' + (n < 10 ? '0' + n : n),
+      bio: a.bio || (a.name + ' is a standout ' + a.position.toLowerCase() + ' for ' + a.club + ', representing the ' + a.code + '. Known for composure under pressure and a tireless work rate, ' + first + ' embodies the Human First, Athlete Second ethos both on and off the field.'),
+      bio2: a.bio2 || ('Beyond the game, ' + first + ' is committed to ongoing personal and professional development through the Sportsplayer Academy \u2014 the holistic representation that defines our roster.'),
+      stats: [
+        { label: 'Apps', value: apps }, { label: 'Tries', value: tries },
+        { label: 'Tackle %', value: tackle + '%' }, { label: 'Run M', value: metres },
+      ],
+      timeline: [
+        { year: '2021', text: 'Graduated the club High-Performance Youth Program and signed first development contract with ' + a.club + '.' },
+        { year: '2023', text: 'Made senior debut in the ' + a.code + ', cementing a starting role at ' + a.position.toLowerCase() + '.' },
+        { year: '2025', text: 'Joined the Sportsplayer roster under the Human First, Athlete Second ethos.' },
+        { year: '2026', text: 'Named one to watch across the ' + a.code + ' season ahead.' },
+      ],
+    };
+  }
+
+  renderVals() {
+    const all = this.roster();
+    const featured = all.map(a => ({
+      ...a,
+      numLabel: 'No. ' + (a.number < 10 ? '0' + a.number : a.number),
+      onOpen: () => { this.setState({ selectedId: a.id }); document.body.style.overflow = 'hidden'; },
+    }));
+
+    const menuData = [
+      { num: '01', label: 'Athletes', href: 'Sportsplayer Athletes.dc.html', seed: 'spx-patolo' },
+      { num: '02', label: 'Academy', href: 'Sportsplayer Academy.dc.html', seed: 'spx-menu-academy' },
+      { num: '03', label: 'Journal', href: 'Sportsplayer Journal.dc.html', seed: 'spx-menu-journal' },
+      { num: '04', label: 'Culture', href: 'Sportsplayer Culture.dc.html', seed: 'spx-menu-culture' },
+      { num: '05', label: 'Scholarships', href: 'Sportsplayer Scholarships.dc.html', seed: 'spx-menu-scholar' },
+      { num: '06', label: 'Team', href: 'Sportsplayer Team.dc.html', seed: 'spx-menu-team' },
+      { num: '07', label: 'About', href: 'Sportsplayer About.dc.html', seed: 'spx-menu-about' },
+      { num: '08', label: 'Tyran Smith', href: 'Sportsplayer Tyran Smith.dc.html', seed: 'spx-tyran-founder' },
+      { num: '09', label: 'Contact', href: 'Sportsplayer Contact.dc.html', seed: 'spx-menu-contact' },
+    ];
+    const menuItems = menuData.map(m => ({
+      num: m.num, label: m.label, href: m.href,
+      onHover: () => { if (this._img) this._img.src = 'https://picsum.photos/seed/' + m.seed + '/1200/1400?grayscale'; },
+      onClick: () => this.setState({ menuOpen: false }),
+    }));
+
+    const services = [
+      { num: '01', title: 'Management', href: '#', cta: 'Representation', desc: 'Contract negotiation, endorsement deals, career management and post-career planning \u2014 all human first.' },
+      { num: '02', title: 'Academy', href: '#academy', cta: 'Explore', desc: 'Accurate, relevant content that gives young athletes an edge on and off the field, with a weekly Academy Hub.' },
+      { num: '03', title: 'Magazine', href: '#journal', cta: 'Read stories', desc: 'Compelling stories, in-depth interviews and exclusive insight into the lives behind the athletes.' },
+    ];
+
+    const journal = [
+      { tag: 'Interview', date: 'June 2026', title: 'Human First: the Tyran Smith doctrine', img: 'https://picsum.photos/seed/spx-journal-1/1100/760?grayscale' },
+      { tag: 'Academy', date: 'June 2026', title: 'The edge off the field', img: 'https://picsum.photos/seed/spx-journal-2/900/640?grayscale' },
+      { tag: 'Feature', date: 'May 2026', title: 'One story at a time', img: 'https://picsum.photos/seed/spx-journal-3/900/640?grayscale' },
+    ];
+
+    const sel = this.state.selectedId ? all.find(a => a.id === this.state.selectedId) : null;
+    const menuOpen = this.state.menuOpen;
+
+    return {
+      featured, menuItems, services, journal,
+      setImg: (el) => { if (el) this._img = el; },
+      menuOuterStyle: 'position:fixed;inset:0;z-index:90;background:#111113;transition:opacity .5s ease,visibility .5s;' +
+        (menuOpen ? 'opacity:1;visibility:visible;pointer-events:auto;' : 'opacity:0;visibility:hidden;pointer-events:none;'),
+      openMenu: () => this.setState({ menuOpen: true }),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      selected: sel ? this.buildProfile(sel) : null,
+      closeProfile: () => { this.setState({ selectedId: null }); document.body.style.overflow = ''; },
+      stop: (e) => e.stopPropagation(),
+    };
+  }
+}
+</script>
+</body>
+</html>

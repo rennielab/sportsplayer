@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;}html{scroll-behavior:smooth;}body{margin:0;background:#141416;}::selection{background:#E9FF4A;color:#141416;}::-webkit-scrollbar{width:9px;}::-webkit-scrollbar-track{background:#141416;}::-webkit-scrollbar-thumb{background:#2a2a2e;border-radius:20px;}input::placeholder,textarea::placeholder{color:#6a6a67;}</style>
+</helmet>
+<div style="background:#141416;color:#FAFAF7;font-family:Geist,sans-serif;min-height:100vh;overflow-x:hidden;">
+  <dc-import name="Sportsplayer Nav" active="Contact" hint-size="100%,76px"></dc-import>
+
+  <section style="padding:clamp(56px,8vw,120px) clamp(20px,4vw,64px) clamp(28px,3vw,44px);">
+    <div data-reveal style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8e8e8b;margin-bottom:22px;">[ Contact Us ]</div>
+    <h1 data-reveal style="font-weight:700;font-size:clamp(56px,11vw,200px);line-height:.86;letter-spacing:-.05em;margin:0;">Let's talk.</h1>
+  </section>
+
+  <section style="padding:clamp(20px,3vw,40px) clamp(20px,4vw,64px) clamp(72px,9vw,130px);">
+    <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(28px,5vw,80px);align-items:start;">
+
+      <!-- FORM -->
+      <div data-reveal>
+        <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+          <div style="border:1px solid rgba(233,255,74,.4);border-radius:20px;padding:clamp(32px,4vw,56px);background:#1b1b1e;">
+            <div style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#E9FF4A;margin-bottom:18px;">Message sent</div>
+            <h2 style="font-weight:700;font-size:clamp(26px,3vw,40px);line-height:1.02;letter-spacing:-.02em;margin:0 0 14px;">Thanks, {{ name }}.</h2>
+            <p style="font-size:16px;line-height:1.6;color:#a8a8a3;margin:0 0 26px;">We've received your message and a member of the team will be in touch shortly. Human first — always.</p>
+            <button onClick="{{ reset }}" style="background:none;border:1px solid rgba(255,255,255,.2);color:#FAFAF7;font-family:Geist,sans-serif;font-weight:500;font-size:14px;padding:13px 24px;border-radius:40px;cursor:pointer;" style-hover="border-color:#fff;">Send another →</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div>
+              <label style="display:block;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8e8e8b;margin-bottom:9px;">Name</label>
+              <input value="{{ name }}" onInput="{{ onName }}" placeholder="Your name" style="width:100%;background:#1b1b1e;border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:15px 18px;font-family:Geist,sans-serif;font-size:15px;color:#FAFAF7;outline:none;" style-focus="border-color:#E9FF4A;">
+            </div>
+            <div>
+              <label style="display:block;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8e8e8b;margin-bottom:9px;">Email</label>
+              <input value="{{ email }}" onInput="{{ onEmail }}" placeholder="you@email.com" style="width:100%;background:#1b1b1e;border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:15px 18px;font-family:Geist,sans-serif;font-size:15px;color:#FAFAF7;outline:none;" style-focus="border-color:#E9FF4A;">
+            </div>
+            <div>
+              <label style="display:block;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8e8e8b;margin-bottom:9px;">I am a…</label>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                <sc-for list="{{ roles }}" as="r" hint-placeholder-count="4">
+                  <button onClick="{{ r.onSelect }}" style="{{ r.btnStyle }}">{{ r.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8e8e8b;margin-bottom:9px;">Message</label>
+              <textarea value="{{ message }}" onInput="{{ onMessage }}" placeholder="Tell us about yourself…" rows="5" style="width:100%;background:#1b1b1e;border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:15px 18px;font-family:Geist,sans-serif;font-size:15px;color:#FAFAF7;outline:none;resize:vertical;" style-focus="border-color:#E9FF4A;"></textarea>
+            </div>
+            <button onClick="{{ submit }}" style="align-self:flex-start;background:#E9FF4A;color:#141416;border:none;font-family:Geist,sans-serif;font-weight:700;font-size:15px;padding:16px 32px;border-radius:40px;cursor:pointer;" style-hover="background:#fff;">Send message →</button>
+          </div>
+        </sc-if>
+      </div>
+
+      <!-- DETAILS -->
+      <div data-reveal style="display:flex;flex-direction:column;gap:14px;">
+        <sc-for list="{{ depts }}" as="d" hint-placeholder-count="4">
+          <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:18px;">
+            <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8e8e8b;margin-bottom:8px;">{{ d.label }}</div>
+            <a href="#" style="font-weight:600;font-size:clamp(17px,1.6vw,22px);color:#FAFAF7;text-decoration:none;letter-spacing:-.01em;" style-hover="color:#E9FF4A;">{{ d.value }}</a>
+          </div>
+        </sc-for>
+        <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:18px;margin-top:6px;">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8e8e8b;margin-bottom:8px;">Studio</div>
+          <p style="font-size:16px;line-height:1.55;color:#cbcbc5;margin:0;">Sydney, New South Wales<br>Australia</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <dc-import name="Sportsplayer Footer" hint-size="100%,420px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { name: '', email: '', role: 'Athlete', message: '', submitted: false };
+  componentDidMount() { if (this._d) return; this._d = true; const els = [...document.querySelectorAll('[data-reveal]')]; const show = e => { e.style.opacity = '1'; e.style.transform = 'none'; }; const inv = e => { const r = e.getBoundingClientRect(); return r.top < innerHeight * 0.96 && r.bottom > 0; }; els.forEach(e => { e.style.opacity = '0'; e.style.transform = 'translateY(26px)'; e.style.transition = 'opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)'; }); els.forEach(e => { if (inv(e)) show(e); }); if ('IntersectionObserver' in window) { this._io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { show(x.target); this._io.unobserve(x.target); } }), { threshold: .08, rootMargin: '0px 0px -6% 0px' }); els.forEach(e => { if (e.style.opacity !== '1') this._io.observe(e); }); } this._f = setTimeout(() => els.forEach(show), 1100); }
+  componentWillUnmount() { if (this._io) this._io.disconnect(); if (this._f) clearTimeout(this._f); }
+  renderVals() {
+    const roleList = ['Athlete', 'Agent / Club', 'Media', 'Partner'];
+    const roles = roleList.map(r => ({
+      label: r, onSelect: () => this.setState({ role: r }),
+      btnStyle: 'background:' + (this.state.role === r ? '#E9FF4A' : 'transparent') + ';color:' + (this.state.role === r ? '#141416' : '#c4c4bf') +
+        ';border:1px solid ' + (this.state.role === r ? '#E9FF4A' : 'rgba(255,255,255,.16)') +
+        ";font-family:'Geist Mono',monospace;font-weight:500;font-size:12px;letter-spacing:.04em;padding:10px 16px;border-radius:40px;cursor:pointer;transition:all .25s;",
+    }));
+    return {
+      name: this.state.name, email: this.state.email, message: this.state.message,
+      roles, submitted: this.state.submitted, notSubmitted: !this.state.submitted,
+      depts: [
+        { label: 'General enquiries', value: 'hello@sportsplayer.com.au' },
+        { label: 'Athlete representation', value: 'athletes@sportsplayer.com.au' },
+        { label: 'Media & press', value: 'media@sportsplayer.com.au' },
+        { label: 'Partnerships', value: 'partners@sportsplayer.com.au' },
+      ],
+      onName: (e) => this.setState({ name: e.target.value }),
+      onEmail: (e) => this.setState({ email: e.target.value }),
+      onMessage: (e) => this.setState({ message: e.target.value }),
+      submit: () => this.setState({ submitted: true }),
+      reset: () => this.setState({ submitted: false, name: '', email: '', message: '' }),
+    };
+  }
+}
+</script>
+</body>
+</html>

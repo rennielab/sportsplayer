@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="font-family:Geist,sans-serif;">
+  <header style="position:sticky;top:0;z-index:50;background:rgba(20,20,22,.82);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);">
+    <div style="padding:18px clamp(20px,4vw,64px);display:flex;align-items:center;justify-content:space-between;">
+      <a href="Sportsplayer Home.dc.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;">
+        <span style="width:11px;height:11px;background:#E9FF4A;border-radius:50%;"></span>
+        <span style="font-weight:700;font-size:17px;letter-spacing:-.01em;">Sportsplayer</span>
+      </a>
+      <div style="display:flex;align-items:center;gap:18px;">
+        <span style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#8e8e8b;">{{ active }}</span>
+        <button onClick="{{ openMenu }}" style="display:flex;align-items:center;gap:12px;background:none;border:none;color:#fff;cursor:pointer;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;">
+          <span style="display:flex;flex-direction:column;gap:4px;width:22px;"><span style="height:2px;background:#fff;width:100%;"></span><span style="height:2px;background:#fff;width:100%;"></span></span>
+          Menu
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div style="{{ menuOuterStyle }}">
+    <div style="position:absolute;inset:0;overflow:hidden;">
+      <img ref="{{ setImg }}" src="https://picsum.photos/seed/spx-menu-default/1200/1400?grayscale" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05) brightness(.5);opacity:.45;transition:opacity .6s ease;">
+      <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(17,17,19,.96) 30%,rgba(17,17,19,.55) 100%);"></div>
+    </div>
+    <div style="position:relative;height:100%;display:flex;flex-direction:column;padding:26px clamp(20px,4vw,64px);">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <a href="Sportsplayer Home.dc.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;">
+          <span style="width:11px;height:11px;background:#E9FF4A;border-radius:50%;"></span>
+          <span style="font-weight:700;font-size:17px;">Sportsplayer</span>
+        </a>
+        <button onClick="{{ closeMenu }}" style="background:none;border:none;color:#fff;cursor:pointer;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;">Close ✕</button>
+      </div>
+      <nav style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:2px;max-width:960px;">
+        <sc-for list="{{ menuItems }}" as="m" hint-placeholder-count="9">
+          <a href="{{ m.href }}" onMouseEnter="{{ m.onHover }}" style="{{ m.linkStyle }}" style-hover="color:#fff;padding-left:18px;">
+            <span style="font-family:'Geist Mono',monospace;font-size:13px;color:#E9FF4A;flex:none;width:32px;">{{ m.num }}</span>
+            <span style="font-weight:600;font-size:clamp(28px,5vw,60px);line-height:1.05;letter-spacing:-.02em;">{{ m.label }}</span>
+          </a>
+        </sc-for>
+      </nav>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;border-top:1px solid rgba(255,255,255,.12);padding-top:22px;">
+        <div style="display:flex;gap:22px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#888;">
+          <a href="#" style="color:#888;text-decoration:none;" style-hover="color:#fff;">Instagram</a>
+          <a href="#" style="color:#888;text-decoration:none;" style-hover="color:#fff;">YouTube</a>
+          <a href="#" style="color:#888;text-decoration:none;" style-hover="color:#fff;">LinkedIn</a>
+        </div>
+        <a href="Sportsplayer Contact.dc.html" style="text-decoration:none;background:#E9FF4A;color:#141416;font-weight:700;font-size:14px;padding:13px 26px;border-radius:40px;" style-hover="background:#fff;">Become a client →</a>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;active&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { menuOpen: false, menuImg: 'https://picsum.photos/seed/spx-menu-default/1200/1400?grayscale' };
+
+  renderVals() {
+    const data = [
+      { num: '01', label: 'Athletes', href: 'Sportsplayer Athletes.dc.html', seed: 'spx-patolo' },
+      { num: '02', label: 'Academy', href: 'Sportsplayer Academy.dc.html', seed: 'spx-menu-academy' },
+      { num: '03', label: 'Journal', href: 'Sportsplayer Journal.dc.html', seed: 'spx-menu-journal' },
+      { num: '04', label: 'Culture', href: 'Sportsplayer Culture.dc.html', seed: 'spx-menu-culture' },
+      { num: '05', label: 'Scholarships', href: 'Sportsplayer Scholarships.dc.html', seed: 'spx-menu-scholar' },
+      { num: '06', label: 'Team', href: 'Sportsplayer Team.dc.html', seed: 'spx-menu-team' },
+      { num: '07', label: 'About', href: 'Sportsplayer About.dc.html', seed: 'spx-menu-about' },
+      { num: '08', label: 'Tyran Smith', href: 'Sportsplayer Tyran Smith.dc.html', seed: 'spx-tyran-founder' },
+      { num: '09', label: 'Contact', href: 'Sportsplayer Contact.dc.html', seed: 'spx-menu-contact' },
+    ];
+    const active = this.props.active || '';
+    const menuItems = data.map(m => ({
+      num: m.num, label: m.label, href: m.href,
+      onHover: () => { if (this._img) this._img.src = 'https://picsum.photos/seed/' + m.seed + '/1200/1400?grayscale'; },
+      linkStyle: 'display:flex;align-items:baseline;gap:22px;text-decoration:none;color:' +
+        (m.label === active ? '#fff' : '#888') + ';padding:clamp(3px,.8vw,8px) 0;' +
+        (m.label === active ? 'padding-left:18px;' : '') +
+        'transition:color .25s,padding-left .35s ease;',
+    }));
+    const menuOpen = this.state.menuOpen;
+    return {
+      active, menuItems, setImg: (el) => { if (el) this._img = el; },
+      menuOuterStyle: 'position:fixed;inset:0;z-index:90;background:#111113;transition:opacity .5s ease,visibility .5s;' +
+        (menuOpen ? 'opacity:1;visibility:visible;pointer-events:auto;' : 'opacity:0;visibility:hidden;pointer-events:none;'),
+      openMenu: () => this.setState({ menuOpen: true }),
+      closeMenu: () => this.setState({ menuOpen: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

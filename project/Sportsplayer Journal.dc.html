@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;}html{scroll-behavior:smooth;}body{margin:0;background:#141416;}::selection{background:#E9FF4A;color:#141416;}::-webkit-scrollbar{width:9px;}::-webkit-scrollbar-track{background:#141416;}::-webkit-scrollbar-thumb{background:#2a2a2e;border-radius:20px;}</style>
+</helmet>
+<div style="background:#141416;color:#FAFAF7;font-family:Geist,sans-serif;min-height:100vh;overflow-x:hidden;">
+  <dc-import name="Sportsplayer Nav" active="Journal" hint-size="100%,76px"></dc-import>
+
+  <!-- HERO -->
+  <section style="padding:clamp(56px,8vw,120px) clamp(20px,4vw,64px) clamp(28px,3vw,40px);">
+    <div data-reveal style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8e8e8b;margin-bottom:22px;">[ Sportsplayer Magazine ]</div>
+    <h1 data-reveal style="font-weight:700;font-size:clamp(48px,9vw,150px);line-height:.88;letter-spacing:-.04em;margin:0 0 26px;">The Journal.</h1>
+    <p data-reveal style="font-size:clamp(15px,1.4vw,19px);line-height:1.6;color:#a8a8a3;max-width:560px;margin:0;">Compelling stories, in-depth interviews and exclusive insight into the world of sport — bringing readers closer to the lives behind the athletes.</p>
+  </section>
+
+  <!-- CATEGORY PILLS -->
+  <section style="padding:0 clamp(20px,4vw,64px);">
+    <div data-reveal style="display:flex;flex-wrap:wrap;gap:8px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,.1);">
+      <sc-for list="{{ cats }}" as="c" hint-placeholder-count="5">
+        <button onClick="{{ c.onSelect }}" style="{{ c.btnStyle }}">{{ c.label }}</button>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <sc-if value="{{ showFeatured }}" hint-placeholder-val="{{ true }}">
+    <section style="padding:clamp(40px,5vw,72px) clamp(20px,4vw,64px) 0;">
+      <a href="#" data-reveal style="text-decoration:none;color:inherit;display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(20px,3vw,48px);align-items:center;">
+        <div style="position:relative;aspect-ratio:16/10;border-radius:20px;overflow:hidden;background:#1b1b1e;">
+          <img loading="lazy" src="{{ featured.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06);transition:transform .8s cubic-bezier(.16,1,.3,1);" style-hover="transform:scale(1.03);">
+          <span style="position:absolute;top:16px;left:16px;font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:rgba(20,20,22,.55);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);color:#fff;padding:6px 12px;border-radius:30px;">{{ featured.tag }}</span>
+        </div>
+        <div>
+          <div style="font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#E9FF4A;margin-bottom:16px;">Featured · {{ featured.date }}</div>
+          <h2 style="font-weight:700;font-size:clamp(28px,3.6vw,52px);line-height:1.02;letter-spacing:-.025em;margin:0 0 18px;">{{ featured.title }}</h2>
+          <p style="font-size:16px;line-height:1.65;color:#a8a8a3;margin:0 0 22px;max-width:460px;">{{ featured.excerpt }}</p>
+          <span style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#fff;border-bottom:1px solid #E9FF4A;padding-bottom:3px;">Read the story →</span>
+        </div>
+      </a>
+    </section>
+  </sc-if>
+
+  <!-- GRID -->
+  <section style="padding:clamp(40px,5vw,72px) clamp(20px,4vw,64px) clamp(72px,9vw,130px);">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,32px);">
+      <sc-for list="{{ posts }}" as="post" hint-placeholder-count="6">
+        <a href="#" data-reveal style="text-decoration:none;color:inherit;display:block;">
+          <div style="position:relative;aspect-ratio:16/11;border-radius:16px;overflow:hidden;background:#1b1b1e;margin-bottom:18px;">
+            <img loading="lazy" src="{{ post.img }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:transform .8s cubic-bezier(.16,1,.3,1);" style-hover="transform:scale(1.04);">
+            <span style="position:absolute;top:14px;left:14px;font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:rgba(20,20,22,.55);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);color:#fff;padding:5px 11px;border-radius:30px;">{{ post.tag }}</span>
+          </div>
+          <div style="font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:#6a6a67;margin-bottom:10px;">{{ post.date }}</div>
+          <h3 style="font-weight:600;font-size:clamp(18px,1.5vw,23px);line-height:1.14;letter-spacing:-.01em;margin:0 0 8px;">{{ post.title }}</h3>
+          <p style="font-size:14px;line-height:1.55;color:#9a9a96;margin:0;">{{ post.excerpt }}</p>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <dc-import name="Sportsplayer Footer" hint-size="100%,420px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { cat: 'All' };
+  componentDidMount() {
+    if (this._d) return; this._d = true;
+    this._setup();
+  }
+  componentDidUpdate() { this._setup(); }
+  _setup() {
+    const els = [...document.querySelectorAll('[data-reveal]')].filter(e => !e._rv);
+    const show = e => { e.style.opacity = '1'; e.style.transform = 'none'; };
+    const inv = e => { const r = e.getBoundingClientRect(); return r.top < innerHeight * 0.97 && r.bottom > 0; };
+    els.forEach(e => { e._rv = 1; e.style.opacity = '0'; e.style.transform = 'translateY(24px)'; e.style.transition = 'opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)'; });
+    els.forEach(e => { if (inv(e)) show(e); });
+    if ('IntersectionObserver' in window) { if (!this._io) this._io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { show(x.target); this._io.unobserve(x.target); } }), { threshold: .06, rootMargin: '0px 0px -5% 0px' }); els.forEach(e => { if (e.style.opacity !== '1') this._io.observe(e); }); }
+    clearTimeout(this._f); this._f = setTimeout(() => document.querySelectorAll('[data-reveal]').forEach(show), 1100);
+  }
+  componentWillUnmount() { if (this._io) this._io.disconnect(); if (this._f) clearTimeout(this._f); }
+
+  allPosts() {
+    return [
+      { tag: 'Interview', cat: 'Interviews', date: 'June 2026', title: 'Human First: the Tyran Smith doctrine', excerpt: 'How a former Rugby League player rebuilt sports management around honesty and integrity.', img: 'https://picsum.photos/seed/spx-journal-1/1100/760?grayscale' },
+      { tag: 'Academy', cat: 'Academy', date: 'June 2026', title: 'The edge off the field', excerpt: 'Inside the weekly Academy Hub and what holistic development really means.', img: 'https://picsum.photos/seed/spx-journal-2/900/640?grayscale' },
+      { tag: 'Feature', cat: 'Features', date: 'May 2026', title: 'One story at a time', excerpt: 'Meet the rising talents redefining the landscape of sport.', img: 'https://picsum.photos/seed/spx-journal-3/900/640?grayscale' },
+      { tag: 'Interview', cat: 'Interviews', date: 'May 2026', title: 'Chris Patolo on patience and power', excerpt: 'The Canterbury junior on the long road from SG Ball to the big stage.', img: 'https://picsum.photos/seed/spx-journal-4/900/640?grayscale' },
+      { tag: 'Culture', cat: 'Culture', date: 'Apr 2026', title: 'What "rewarded to your worth" really means', excerpt: 'Inside the values that shape every negotiation we take on.', img: 'https://picsum.photos/seed/spx-journal-5/900/640?grayscale' },
+      { tag: 'Feature', cat: 'Features', date: 'Apr 2026', title: 'The women rewriting the NRLW', excerpt: 'A new generation of leaders on and off the field.', img: 'https://picsum.photos/seed/spx-journal-6/900/640?grayscale' },
+      { tag: 'Academy', cat: 'Academy', date: 'Mar 2026', title: 'Recovery is a skill', excerpt: 'Sleep, nutrition and the unglamorous habits that win seasons.', img: 'https://picsum.photos/seed/spx-journal-7/900/640?grayscale' },
+      { tag: 'Culture', cat: 'Culture', date: 'Mar 2026', title: 'Character before contracts', excerpt: 'Why we represent the human being long before the athlete.', img: 'https://picsum.photos/seed/spx-journal-8/900/640?grayscale' },
+    ];
+  }
+
+  renderVals() {
+    const catList = ['All', 'Interviews', 'Academy', 'Features', 'Culture'];
+    const cats = catList.map(c => ({
+      label: c, onSelect: () => this.setState({ cat: c }),
+      btnStyle: 'background:' + (this.state.cat === c ? '#E9FF4A' : 'transparent') + ';color:' + (this.state.cat === c ? '#141416' : '#c4c4bf') +
+        ';border:1px solid ' + (this.state.cat === c ? '#E9FF4A' : 'rgba(255,255,255,.16)') +
+        ";font-family:'Geist Mono',monospace;font-weight:500;font-size:12px;letter-spacing:.06em;padding:10px 16px;border-radius:40px;cursor:pointer;transition:all .25s;text-transform:uppercase;",
+    }));
+    const all = this.allPosts();
+    const featured = all[0];
+    const showFeatured = this.state.cat === 'All' || this.state.cat === 'Interviews';
+    const posts = (this.state.cat === 'All' ? all : all.filter(p => p.cat === this.state.cat));
+    return { cats, featured, showFeatured, posts: showFeatured ? posts.filter(p => p !== featured) : posts };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>*{box-sizing:border-box;}html{scroll-behavior:smooth;}body{margin:0;background:#141416;}::selection{background:#E9FF4A;color:#141416;}::-webkit-scrollbar{width:9px;}::-webkit-scrollbar-track{background:#141416;}::-webkit-scrollbar-thumb{background:#2a2a2e;border-radius:20px;}</style>
+</helmet>
+<div style="background:#141416;color:#FAFAF7;font-family:Geist,sans-serif;min-height:100vh;overflow-x:hidden;">
+  <dc-import name="Sportsplayer Nav" active="Team" hint-size="100%,76px"></dc-import>
+
+  <section style="padding:clamp(56px,8vw,120px) clamp(20px,4vw,64px) clamp(28px,3vw,40px);">
+    <div data-reveal style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8e8e8b;margin-bottom:22px;">[ The Team ]</div>
+    <h1 data-reveal style="font-weight:700;font-size:clamp(44px,8vw,140px);line-height:.88;letter-spacing:-.04em;margin:0 0 26px;">The people<br>behind the players.</h1>
+    <p data-reveal style="font-size:clamp(15px,1.4vw,19px);line-height:1.6;color:#a8a8a3;max-width:560px;margin:0;">A close-knit team of agents and operators who treat every athlete as an individual, first and foremost — guided by honesty and integrity.</p>
+  </section>
+
+  <section style="padding:0 clamp(20px,4vw,64px);">
+    <div data-reveal style="display:flex;flex-wrap:wrap;gap:8px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,.1);">
+      <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
+        <button onClick="{{ f.onSelect }}" style="{{ f.btnStyle }}">{{ f.label }}</button>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:clamp(36px,4vw,56px) clamp(20px,4vw,64px) clamp(72px,9vw,130px);">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,30px);">
+      <sc-for list="{{ people }}" as="p" hint-placeholder-count="6">
+        <article data-reveal style="display:block;">
+          <div style="position:relative;aspect-ratio:4/5;border-radius:18px;overflow:hidden;background:#1b1b1e;margin-bottom:18px;">
+            <img loading="lazy" src="{{ p.img }}" alt="{{ p.name }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06);transition:transform .8s cubic-bezier(.16,1,.3,1);" style-hover="transform:scale(1.04);">
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,17,19,0) 55%,rgba(17,17,19,.55) 100%);"></div>
+            <span style="position:absolute;top:14px;left:14px;font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:rgba(20,20,22,.55);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);color:#fff;padding:5px 11px;border-radius:30px;">{{ p.group }}</span>
+          </div>
+          <div style="font-weight:700;font-size:22px;letter-spacing:-.01em;">{{ p.name }}</div>
+          <div style="font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:#E9FF4A;margin:8px 0 12px;">{{ p.role }}</div>
+          <p style="font-size:14px;line-height:1.6;color:#9a9a96;margin:0;">{{ p.bio }}</p>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:0 clamp(20px,4vw,64px) clamp(72px,9vw,140px);text-align:center;">
+    <div data-reveal>
+      <div style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8e8e8b;margin-bottom:24px;">[ Join us ]</div>
+      <h2 style="font-weight:700;font-size:clamp(30px,5vw,72px);line-height:.94;letter-spacing:-.03em;margin:0 0 26px;">Built by people who<br>played the game.</h2>
+      <a href="Sportsplayer Contact.dc.html" style="text-decoration:none;background:#E9FF4A;color:#141416;font-weight:700;font-size:16px;padding:17px 34px;border-radius:40px;" style-hover="background:#fff;">Get in touch →</a>
+    </div>
+  </section>
+
+  <dc-import name="Sportsplayer Footer" hint-size="100%,420px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { group: 'All' };
+  componentDidMount() { if (this._d) return; this._d = true; this._setup(); }
+  componentDidUpdate() { this._setup(); }
+  _setup() {
+    const els = [...document.querySelectorAll('[data-reveal]')].filter(e => !e._rv);
+    const show = e => { e.style.opacity = '1'; e.style.transform = 'none'; };
+    const inv = e => { const r = e.getBoundingClientRect(); return r.top < innerHeight * 0.97 && r.bottom > 0; };
+    els.forEach(e => { e._rv = 1; e.style.opacity = '0'; e.style.transform = 'translateY(24px)'; e.style.transition = 'opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)'; });
+    els.forEach(e => { if (inv(e)) show(e); });
+    if ('IntersectionObserver' in window) { if (!this._io) this._io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { show(x.target); this._io.unobserve(x.target); } }), { threshold: .06, rootMargin: '0px 0px -5% 0px' }); els.forEach(e => { if (e.style.opacity !== '1') this._io.observe(e); }); }
+    clearTimeout(this._f); this._f = setTimeout(() => document.querySelectorAll('[data-reveal]').forEach(show), 1100);
+  }
+  componentWillUnmount() { if (this._io) this._io.disconnect(); if (this._f) clearTimeout(this._f); }
+
+  allPeople() {
+    return [
+      { name: 'Tyran Smith', role: 'Founder · CEO · Player Agent', group: 'Leadership', img: 'https://picsum.photos/seed/spx-tyran-founder/900/1100?grayscale', bio: 'A former professional Rugby League player who built Sportsplayer on honesty and integrity — putting the athlete\u2019s character and humanity at the forefront.' },
+      { name: 'Sam Mansour', role: 'Player Agent', group: 'Player Agents', img: 'https://picsum.photos/seed/spx-team-sam/900/1100?grayscale', bio: 'A devoted family man with a double degree in marketing and economics, and extensive sales & marketing experience across the MENA region and Australasia.' },
+      { name: 'Olivia Reed', role: 'Player Agent', group: 'Player Agents', img: 'https://picsum.photos/seed/spx-team-olivia/900/1100?grayscale', bio: 'Specialising in the NRLW and Rugby Union, Olivia champions the next generation of women redefining the professional game.' },
+      { name: 'Daniel Cho', role: 'Talent & Recruitment', group: 'Player Agents', img: 'https://picsum.photos/seed/spx-team-daniel/900/1100?grayscale', bio: 'Identifies and nurtures emerging talent from the grassroots up, with a sharp eye for character as much as ability.' },
+      { name: 'Maria Fonua', role: 'Head of Operations', group: 'Operations', img: 'https://picsum.photos/seed/spx-team-maria/900/1100?grayscale', bio: 'Keeps the engine running — contracts, logistics and the day-to-day so our agents can stay focused on the people.' },
+      { name: 'James Okafor', role: 'Brand & Partnerships', group: 'Operations', img: 'https://picsum.photos/seed/spx-team-james/900/1100?grayscale', bio: 'Builds endorsement and partnership deals that reflect each athlete\u2019s story and long-term brand.' },
+      { name: 'Hana Williams', role: 'Athlete Wellbeing', group: 'Operations', img: 'https://picsum.photos/seed/spx-team-hana/900/1100?grayscale', bio: 'Leads the Human First programme — mental health, education and life beyond the final whistle.' },
+      { name: 'Marcus Bly', role: 'Player Agent', group: 'Player Agents', img: 'https://picsum.photos/seed/spx-team-marcus/900/1100?grayscale', bio: 'A negotiator who believes players should be rewarded commensurately with their worth — no spin, no games.' },
+    ];
+  }
+
+  renderVals() {
+    const groups = ['All', 'Leadership', 'Player Agents', 'Operations'];
+    const filters = groups.map(g => ({
+      label: g, onSelect: () => this.setState({ group: g }),
+      btnStyle: 'background:' + (this.state.group === g ? '#E9FF4A' : 'transparent') + ';color:' + (this.state.group === g ? '#141416' : '#c4c4bf') +
+        ';border:1px solid ' + (this.state.group === g ? '#E9FF4A' : 'rgba(255,255,255,.16)') +
+        ";font-family:'Geist Mono',monospace;font-weight:500;font-size:12px;letter-spacing:.06em;padding:10px 16px;border-radius:40px;cursor:pointer;transition:all .25s;text-transform:uppercase;",
+    }));
+    const all = this.allPeople();
+    const people = this.state.group === 'All' ? all : all.filter(p => p.group === this.state.group);
+    return { filters, people };
+  }
+}
+</script>
+</body>
+</html>
